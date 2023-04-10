@@ -23,3 +23,10 @@
 .read-the-docs {
   color: #888;
 }
+
+/* MY STUFF */
+.completed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
