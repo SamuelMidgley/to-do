@@ -2,7 +2,7 @@ import './app.css'
 import AddToDo from './components/to-do/AddToDo'
 import ToDoItem from './components/to-do/ToDo'
 import ProgressBar from './components/progress-bar/ProgressBar'
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 
 export type ToDoState = 'incomplete' | 'hold' | 'completed'
 
@@ -65,9 +65,27 @@ export function App() {
     )
   }
 
+  function updateToDo(id: number, text: string) {
+    setToDos((prev) =>
+      prev.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            text,
+          }
+        }
+        return item
+      })
+    )
+  }
+
   const incompleteToDos = todos.filter((item) => item.state === 'incomplete')
   const onHoldToDos = todos.filter((item) => item.state === 'hold')
   const completedToDos = todos.filter((item) => item.state === 'completed')
+
+  useEffect(() => {
+    console.log(todos)
+  }, todos)
 
   return (
     <>
@@ -79,7 +97,11 @@ export function App() {
         <ul>
           {incompleteToDos.map((item) => (
             <li key={item.id}>
-              <ToDoItem item={item} setState={setState} />
+              <ToDoItem
+                item={item}
+                setState={setState}
+                updateText={updateToDo}
+              />
             </li>
           ))}
         </ul>
@@ -90,7 +112,11 @@ export function App() {
             <ul>
               {onHoldToDos.map((item) => (
                 <li key={item.id}>
-                  <ToDoItem item={item} setState={setState} />
+                  <ToDoItem
+                    item={item}
+                    setState={setState}
+                    updateText={updateToDo}
+                  />
                 </li>
               ))}
             </ul>
@@ -109,7 +135,11 @@ export function App() {
           <ul>
             {completedToDos.map((item) => (
               <li key={item.id}>
-                <ToDoItem item={item} setState={setState} />
+                <ToDoItem
+                  item={item}
+                  setState={setState}
+                  updateText={updateToDo}
+                />
               </li>
             ))}
           </ul>
