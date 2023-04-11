@@ -2,7 +2,8 @@ import './app.css'
 import AddToDo from './components/to-do/AddToDo'
 import ToDoItem from './components/to-do/ToDo'
 import ProgressBar from './components/progress-bar/ProgressBar'
-import { useEffect, useState } from 'preact/hooks'
+import { useState } from 'preact/hooks'
+import SideBar from './components/side-bar/SideBar'
 
 export type ToDoState = 'incomplete' | 'hold' | 'completed'
 
@@ -88,17 +89,19 @@ export function App() {
   const onHoldToDos = todos.filter((item) => item.state === 'hold')
   const completedToDos = todos.filter((item) => item.state === 'completed')
 
-  useEffect(() => {
-    console.log(todos)
-  }, todos)
-
   return (
     <>
-      <div></div>
+      <SideBar />
       <div>
         <h1>To do</h1>
-        <ProgressBar items={todos} />
+        <ProgressBar
+          completed={completedToDos.length}
+          onHold={onHoldToDos.length}
+          toDo={incompleteToDos.length}
+          totalNum={todos.length}
+        />
         <AddToDo addItem={addToDo} />
+        <h2>To do</h2>
         <ul>
           {incompleteToDos.map((item) => (
             <li key={item.id}>
@@ -113,7 +116,7 @@ export function App() {
 
         {onHoldToDos.length > 0 && (
           <div>
-            <h3>On hold</h3>
+            <h3>Paused</h3>
             <ul>
               {onHoldToDos.map((item) => (
                 <li key={item.id}>

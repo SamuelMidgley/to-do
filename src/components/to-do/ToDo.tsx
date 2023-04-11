@@ -36,23 +36,20 @@ export default function ToDoItem(props: ToDoProps) {
           type="button"
           disabled={state === 'incomplete'}
           onClick={() => setState(id, 'incomplete')}
-        >
-          🔴
-        </button>
+          className="action-buttons reset-button"
+        />
         <button
           type="button"
           disabled={state === 'hold'}
           onClick={() => setState(id, 'hold')}
-        >
-          🟡
-        </button>
+          className="action-buttons hold-button"
+        />
         <button
           type="button"
           disabled={state === 'completed'}
           onClick={() => setState(id, 'completed')}
-        >
-          🟢
-        </button>
+          className="action-buttons complete-button"
+        />
       </div>
     </div>
   )

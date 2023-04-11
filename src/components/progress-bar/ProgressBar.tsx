@@ -1,16 +1,14 @@
 import { ToDo } from '../../app'
 
 interface ProgressBarProps {
-  items: ToDo[]
+  completed: number
+  onHold: number
+  toDo: number
+  totalNum: number
 }
 
 export default function ProgressBar(props: ProgressBarProps) {
-  const { items } = props
-
-  const totalNum = items.length
-  const completed = items.filter((item) => item.state === 'completed').length
-  const onHold = items.filter((item) => item.state === 'hold').length
-  const toDo = items.filter((item) => item.state === 'incomplete').length
+  const { completed, onHold, toDo, totalNum } = props
 
   return (
     <div className="progress-bar-container">

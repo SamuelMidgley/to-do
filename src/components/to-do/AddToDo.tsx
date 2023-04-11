@@ -21,7 +21,7 @@ export default function AddToDo(props: AddToDoProps) {
   function onBlurHandler() {}
 
   return (
-    <div className="to-do-item">
+    <div className="to-do-item add-to-do">
       <AutoResize
         value={value}
         setValue={onChangeHandler}
