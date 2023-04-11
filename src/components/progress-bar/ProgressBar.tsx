@@ -1,5 +1,4 @@
 import { ToDo } from '../../app'
-import './ProgressBar.css'
 
 interface ProgressBarProps {
   items: ToDo[]

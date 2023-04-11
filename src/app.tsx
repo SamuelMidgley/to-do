@@ -53,7 +53,12 @@ export function App() {
   }
 
   function addToDo(text: string) {
-    const newId = todos[todos.length - 1].id + 1
+    let newId: number
+    if (todos.length > 0) {
+      newId = todos[todos.length - 1].id + 1
+    } else {
+      newId = 1
+    }
     setToDos((prev) =>
       prev.concat([
         {

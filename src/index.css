@@ -12,6 +12,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --background: black;
+  --surface: darkgray;
+  --primary: red;
+  --secondary: blue;
+  --on-background: white;
+  --on-surface: gray;
+  --on-primary: white;
+  --on-secondary: white;
+  --green: green;
+  --yellow: yellow;
+  --red: red;
 }
 
 body {
