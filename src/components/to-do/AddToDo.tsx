@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks'
+import AutoResize from '../auto-resize/AutoResize'
 
 interface AddToDoProps {
   addItem: (text: string) => void
@@ -13,12 +14,18 @@ export default function AddToDo(props: AddToDoProps) {
     setValue('')
   }
 
+  function onChangeHandler(newVal: string) {
+    setValue(newVal)
+  }
+
+  function onBlurHandler() {}
+
   return (
     <div className="to-do-item">
-      <input
-        className="to-do-input"
+      <AutoResize
         value={value}
-        onChange={(e) => setValue(e.currentTarget.value)}
+        setValue={onChangeHandler}
+        onBlurHandler={onBlurHandler}
       />
       <button className="to-do-add-button" type="button" onClick={addNewToDo}>
         +
