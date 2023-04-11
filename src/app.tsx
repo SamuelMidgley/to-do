@@ -7,6 +7,8 @@ import SideBar from './components/side-bar/SideBar'
 
 export type ToDoState = 'incomplete' | 'hold' | 'completed'
 
+const date = new Date()
+
 export interface ToDo {
   id: number
   text: string
@@ -93,7 +95,13 @@ export function App() {
     <>
       <SideBar />
       <div>
-        <h1>To do</h1>
+        <h1 style={{ marginBottom: '0px' }}>
+          {date.toLocaleString('default', { weekday: 'long' })},
+        </h1>
+        <h2 style={{ marginTop: '0px' }}>
+          {date.toLocaleString('default', { day: 'numeric' })}&nbsp;
+          {date.toLocaleString('default', { month: 'long' })}
+        </h2>
         <ProgressBar
           completed={completedToDos.length}
           onHold={onHoldToDos.length}
