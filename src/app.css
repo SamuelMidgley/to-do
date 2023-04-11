@@ -2,24 +2,110 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  /* text-align: center; */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.preact:hover {
-  filter: drop-shadow(0 0 2em #673ab8aa);
+.completed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.card {
-  padding: 2em;
+/* To do */
+.to-do-item {
+  background-color: var(--surface);
+  padding: 10px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  border-radius: 5px;
+  min-width: 400px;
+  min-height: 30px;
 }
 
-.read-the-docs {
-  color: #888;
+.to-do-item .to-do-actions {
+  display: flex;
+  margin-left: 20px;
+}
+
+.to-do-item .to-do-actions .action-buttons {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.to-do-item .to-do-actions .action-buttons[disabled] {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.to-do-item .to-do-actions .reset-button {
+  background-color: var(--red);
+}
+
+.to-do-item .to-do-actions .hold-button {
+  background-color: var(--yellow);
+}
+
+.to-do-item .to-do-actions .complete-button {
+  background-color: var(--green);
+}
+
+.to-do-item .to-do-input {
+  background-color: transparent;
+  border: 0px;
+  font-size: inherit;
+  font-family: inherit;
+  resize: none;
+  color: var(--on-surface);
+}
+
+.to-do-item .to-do-input:focus {
+  outline: 0px;
+}
+
+.to-do-item .to-do-add-button {
+  color: var(--on-surface);
+}
+
+.to-do-item.add-to-do {
+  background-color: var(--add-todo-background);
+}
+
+/* Progress bar */
+.progress-bar-container {
+  border-radius: 25px;
+  height: 10px;
+  width: 100%;
+  display: flex;
+  padding: 10px 0;
+}
+
+.progress-bar-container .completed-bar,
+.progress-bar-container .onhold-bar,
+.progress-bar-container .todo-bar {
+  height: 100%;
+}
+
+.progress-bar-container > div:first-child {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.progress-bar-container > div:last-child {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.progress-bar-container .completed-bar {
+  background-color: var(--green);
+}
+
+.progress-bar-container .onhold-bar {
+  background-color: var(--yellow);
+}
+
+.progress-bar-container .todo-bar {
+  background-color: var(--surface);
 }
