@@ -10,6 +10,7 @@
     "lint:script": "eslint --ext .ts,tsx --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.19.0",
     "preact": "^10.13.0"
   },
   "devDependencies": {
