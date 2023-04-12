@@ -33,7 +33,7 @@ const InitialState: ToDo[] = [
   },
 ]
 
-export function App() {
+export default function App() {
   const [todos, setToDos] = useState<ToDo[]>(InitialState)
 
   function setState(id: number, state: ToDoState) {

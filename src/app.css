@@ -13,13 +13,13 @@
 /* To do */
 .to-do-item {
   background-color: var(--surface);
-  padding: 10px 5px;
+  padding: 10px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 10px 0;
   border-radius: 5px;
-  min-width: 400px;
+  width: 380px;
   min-height: 30px;
 }
 
@@ -108,4 +108,14 @@
 
 .progress-bar-container .todo-bar {
   background-color: var(--surface);
+}
+
+.text-editor {
+  min-height: 24px;
+  width: 100%;
+  word-break: break-all;
+}
+
+.text-editor:focus-visible {
+  outline: none;
 }
