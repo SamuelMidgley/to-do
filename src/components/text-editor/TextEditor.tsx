@@ -21,8 +21,7 @@ export default function TextEditor(props: AutoResizeProps) {
       ref={ref}
       onBlur={onBlurHandler}
       className="text-editor"
-    >
-      <p>{value}</p>
-    </div>
+      dangerouslySetInnerHTML={{ __html: value }}
+    />
   )
 }

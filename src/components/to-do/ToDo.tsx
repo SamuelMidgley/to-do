@@ -12,10 +12,7 @@ export default function ToDoItem(props: ToDoProps) {
   const { item, setState, updateText } = props
   const { id, text, state } = item
 
-  const [value, setValue] = useState(text)
-
   function onChangeHandler(newVal: string) {
-    setValue(newVal)
     if (text !== newVal) {
       updateText(id, newVal)
     }
@@ -23,7 +20,7 @@ export default function ToDoItem(props: ToDoProps) {
 
   return (
     <div className="to-do-item">
-      <TextEditor value={value} setValue={onChangeHandler} />
+      <TextEditor value={text} setValue={onChangeHandler} />
       <div className="to-do-actions">
         <button
           type="button"
