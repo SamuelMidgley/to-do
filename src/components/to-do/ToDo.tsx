@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks'
 import { ToDo, ToDoState } from '../../app'
-import AutoResize from '../auto-resize/AutoResize'
+import TextEditor from '../text-editor/TextEditor'
 
 interface ToDoProps {
   item: ToDo
@@ -14,23 +14,16 @@ export default function ToDoItem(props: ToDoProps) {
 
   const [value, setValue] = useState(text)
 
-  function onBlurHandler() {
-    if (text !== value) {
-      updateText(id, value)
-    }
-  }
-
   function onChangeHandler(newVal: string) {
     setValue(newVal)
+    if (text !== newVal) {
+      updateText(id, newVal)
+    }
   }
 
   return (
     <div className="to-do-item">
-      <AutoResize
-        value={value}
-        setValue={onChangeHandler}
-        onBlurHandler={onBlurHandler}
-      />
+      <TextEditor value={value} setValue={onChangeHandler} />
       <div className="to-do-actions">
         <button
           type="button"

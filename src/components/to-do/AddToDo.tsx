@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import AutoResize from '../auto-resize/AutoResize'
+import TextEditor from '../text-editor/TextEditor'
 
 interface AddToDoProps {
   addItem: (text: string) => void
@@ -18,15 +18,9 @@ export default function AddToDo(props: AddToDoProps) {
     setValue(newVal)
   }
 
-  function onBlurHandler() {}
-
   return (
     <div className="to-do-item add-to-do">
-      <AutoResize
-        value={value}
-        setValue={onChangeHandler}
-        onBlurHandler={onBlurHandler}
-      />
+      <TextEditor value={value} setValue={onChangeHandler} />
       <button className="to-do-add-button" type="button" onClick={addNewToDo}>
         +
       </button>
