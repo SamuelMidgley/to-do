@@ -26,18 +26,21 @@ export default function ToDoItem(props: ToDoProps) {
           disabled={state === 'incomplete'}
           onClick={() => setState(id, 'incomplete')}
           className="action-buttons reset-button"
+          aria-label="Undo item"
         />
         <button
           type="button"
           disabled={state === 'hold'}
           onClick={() => setState(id, 'hold')}
           className="action-buttons hold-button"
+          aria-label="Pause item"
         />
         <button
           type="button"
           disabled={state === 'completed'}
           onClick={() => setState(id, 'completed')}
           className="action-buttons complete-button"
+          aria-label="Complete item"
         />
       </div>
     </div>
