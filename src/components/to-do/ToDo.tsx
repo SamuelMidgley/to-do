@@ -1,4 +1,5 @@
 import { ToDo, ToDoState } from '../../app'
+import Check from '../check/Check'
 import TextEditor from '../text-editor/TextEditor'
 
 interface ToDoProps {
@@ -17,32 +18,17 @@ export default function ToDoItem(props: ToDoProps) {
     }
   }
 
+  function changeStateHandler() {
+    const newState: ToDoState =
+      state === 'completed' ? 'incomplete' : 'completed'
+
+    setState(id, newState)
+  }
+
   return (
     <div className="to-do-item">
+      <Check checked={state === 'completed'} setChecked={changeStateHandler} />
       <TextEditor value={text} setValue={onChangeHandler} />
-      <div className="to-do-actions">
-        <button
-          type="button"
-          disabled={state === 'incomplete'}
-          onClick={() => setState(id, 'incomplete')}
-          className="action-buttons reset-button"
-          aria-label="Undo item"
-        />
-        <button
-          type="button"
-          disabled={state === 'hold'}
-          onClick={() => setState(id, 'hold')}
-          className="action-buttons hold-button"
-          aria-label="Pause item"
-        />
-        <button
-          type="button"
-          disabled={state === 'completed'}
-          onClick={() => setState(id, 'completed')}
-          className="action-buttons complete-button"
-          aria-label="Complete item"
-        />
-      </div>
     </div>
   )
 }
