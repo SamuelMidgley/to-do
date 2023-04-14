@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 10px 0;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   width: 380px;
   min-height: 30px;
 }
@@ -118,4 +118,103 @@
 
 .text-editor:focus-visible {
   outline: none;
+}
+
+.log-off-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.log-off-button-container .log-off-button {
+  color: var(--on-background);
+  border: 2px solid var(--add-todo-background);
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+}
+
+.log-off-button-container .log-off-button:hover {
+  background-color: var(--add-todo-background);
+}
+
+.log-in-form {
+  width: 400px;
+}
+
+.log-in-form h1 {
+  margin-bottom: 0px;
+}
+
+.log-in-form .log-in-subtitle {
+  display: flex;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.log-in-form .log-in-subtitle button {
+  color: var(--primary);
+  font-weight: normal;
+}
+
+.log-in-form .log-in-subtitle button:hover {
+  color: var(--on-background);
+}
+
+.log-in-form .log-in-input {
+  background-color: var(--background);
+  border: 0px;
+  color: var(--on-background);
+  padding: 5px;
+  flex-grow: 1;
+}
+
+.log-in-form .log-in-input:focus-visible {
+  outline: 0px;
+  color: var(--on-background);
+}
+
+.log-in-form .log-in-submit {
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  color: var(--on-primary);
+  background-color: var(--primary);
+  margin-top: 10px;
+}
+
+.log-in-form .log-in-submit:hover {
+  background-color: var(--primary-hover);
+  transition: background-color 0.1s ease;
+}
+
+.input-wrapper {
+  border: 2px solid var(--add-todo-background);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.input-wrapper svg {
+  fill: var(--on-background);
+  margin-right: 3px;
+}
+
+.input-wrapper:has(input:focus-visible) {
+  border-color: var(--surface);
+}
+
+.log-in-input:-webkit-autofill {
+  -webkit-text-fill-color: var(--on-background);
+  -webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
+}
+
+.log-in-error {
+  border: 2px solid var(--red-dark);
+  border-radius: var(--border-radius);
+  color: var(--red-light);
+  padding: 8px 10px;
+  margin-bottom: 5px;
 }
