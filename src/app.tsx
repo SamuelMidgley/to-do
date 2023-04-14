@@ -33,7 +33,12 @@ const InitialState: ToDo[] = [
   },
 ]
 
-export default function App() {
+export interface AppProps {
+  supabaseClient: any
+}
+
+export default function App(props: AppProps) {
+  const { supabaseClient } = props
   const [todos, setToDos] = useState<ToDo[]>(InitialState)
 
   function setState(id: number, state: ToDoState) {
@@ -87,6 +92,13 @@ export default function App() {
     )
   }
 
+  async function signOutHandler() {
+    // ADD VALIDATION
+    const { error } = await supabaseClient.auth.signOut()
+
+    console.log(error)
+  }
+
   const incompleteToDos = todos.filter((item) => item.state === 'incomplete')
   const onHoldToDos = todos.filter((item) => item.state === 'hold')
   const completedToDos = todos.filter((item) => item.state === 'completed')
@@ -94,8 +106,13 @@ export default function App() {
   return (
     <>
       <SideBar />
+      <div className="log-off-button-container">
+        <button className="log-off-button" onClick={signOutHandler}>
+          Log off
+        </button>
+      </div>
       <div>
-        <h1 style={{ marginBottom: '0px' }}>
+        <h1 style={{ margin: '0px' }}>
           {date.toLocaleString('default', { weekday: 'long' })},
         </h1>
         <h2 style={{ marginTop: '0px' }}>
