@@ -23,35 +23,6 @@
   min-height: 30px;
 }
 
-.to-do-item .to-do-actions {
-  display: flex;
-  margin-left: 20px;
-}
-
-.to-do-item .to-do-actions .action-buttons {
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  margin-right: 8px;
-}
-
-.to-do-item .to-do-actions .action-buttons[disabled] {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-.to-do-item .to-do-actions .reset-button {
-  background-color: var(--red);
-}
-
-.to-do-item .to-do-actions .hold-button {
-  background-color: var(--yellow);
-}
-
-.to-do-item .to-do-actions .complete-button {
-  background-color: var(--green);
-}
-
 .to-do-item .to-do-input {
   background-color: transparent;
   border: 0px;
@@ -99,7 +70,7 @@
 }
 
 .progress-bar-container .completed-bar {
-  background-color: var(--green);
+  background-color: var(--primary);
 }
 
 .progress-bar-container .onhold-bar {
@@ -133,7 +104,9 @@
 }
 
 .log-off-button-container .log-off-button:hover {
-  background-color: var(--add-todo-background);
+  /* background-color: var(--add-todo-background); */
+  border: 2px solid var(--primary);
+  transition: border 0.1s ease-out;
 }
 
 .log-in-form {
@@ -217,4 +190,30 @@
   color: var(--red-light);
   padding: 8px 10px;
   margin-bottom: 5px;
+}
+
+.check-icon {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  border: 2px solid var(--on-background);
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+}
+
+.check-icon svg {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  fill: var(--on-background);
+}
+
+.check-icon:hover {
+  border: 2px solid var(--primary);
+}
+
+.check-icon:hover svg {
+  fill: var(--primary);
 }

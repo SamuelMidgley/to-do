@@ -4,6 +4,7 @@ import ToDoItem from './components/to-do/ToDo'
 import ProgressBar from './components/progress-bar/ProgressBar'
 import { useState } from 'preact/hooks'
 import SideBar from './components/side-bar/SideBar'
+import BinIcon from './icons/BinIcon'
 
 export type ToDoState = 'incomplete' | 'hold' | 'completed'
 
@@ -24,7 +25,7 @@ const InitialState: ToDo[] = [
   {
     id: 2,
     text: 'This is on hold',
-    state: 'hold',
+    state: 'incomplete',
   },
   {
     id: 3,
@@ -121,8 +122,6 @@ export default function App(props: AppProps) {
         </h2>
         <ProgressBar
           completed={completedToDos.length}
-          onHold={onHoldToDos.length}
-          toDo={incompleteToDos.length}
           totalNum={todos.length}
         />
         <AddToDo addItem={addToDo} />
@@ -156,27 +155,27 @@ export default function App(props: AppProps) {
           </div>
         )}
 
-        <div>
-          <div className="completed-header">
-            <h3>Completed</h3>
-            {completedToDos.length > 0 && (
+        {completedToDos.length > 0 && (
+          <div>
+            <div className="completed-header">
+              <h3>Completed</h3>
               <button type="button" onClick={clearCompleted}>
-                🗑️
+                <BinIcon />
               </button>
-            )}
+            </div>
+            <ul>
+              {completedToDos.map((item) => (
+                <li key={item.id}>
+                  <ToDoItem
+                    item={item}
+                    setState={setState}
+                    updateText={updateToDo}
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul>
-            {completedToDos.map((item) => (
-              <li key={item.id}>
-                <ToDoItem
-                  item={item}
-                  setState={setState}
-                  updateText={updateToDo}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+        )}
       </div>
     </>
   )
