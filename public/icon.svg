@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1080" height="1080" viewBox="0 0 1080 1080" xml:space="preserve">
+  <rect x="0" y="0" width="100%" height="100%" fill="transparent"/>
+  <g transform="matrix(1 0 0 1 540 540)" id="c6de4d17-46d2-4e3c-911e-5efa637ef28f">
+    <rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; visibility: hidden;" vector-effect="non-scaling-stroke" x="-540" y="-540" rx="0" ry="0" width="1080" height="1080"/>
+  </g>
+  <g transform="matrix(1 0 0 1 540 540)" id="a4a2ab39-b08d-494d-a918-1b909459bd42">
+  </g>
+  <g transform="matrix(15.03 0 0 15.1 540 539.53)" id="b8a77645-937f-4584-a789-7524f0b0ad6f">
+    <circle style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke" cx="0" cy="0" r="35"/>
+  </g>
+  <g transform="matrix(1 0 0 1 540 540)" id="e428f5eb-75ce-4a2c-936b-d1ee534f9532">
+    <path style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke" transform=" translate(-480, -576)" d="M 480 976 Q 397 976 324 944.5 Q 251 913 197 859 Q 143 805 111.5 732 Q 80 659 80 576 Q 80 493 111.5 420 Q 143 347 197 293 Q 251 239 324 207.5 Q 397 176 480 176 Q 528 176 573.5 187 Q 619 198 661 219 Q 676 227 680.5 243 Q 685 259 675 273 Q 665 287 648.5 291 Q 632 295 616 287 Q 584 272 549.5 264 Q 515 256 480 256 Q 347 256 253.5 349.5 Q 160 443 160 576 Q 160 709 253.5 802.5 Q 347 896 480 896 Q 613 896 706.5 802.5 Q 800 709 800 576 Q 800 568 799.5 560.5 Q 799 553 798 545 Q 796 528 804.5 512.5 Q 813 497 830 492 Q 846 487 860 495 Q 874 503 876 519 Q 878 533 879 547 Q 880 561 880 576 Q 880 659 848.5 732 Q 817 805 763 859 Q 709 913 636 944.5 Q 563 976 480 976 Z M 424 648 L 796 275 Q 807 264 823.5 263.5 Q 840 263 852 275 Q 863 286 863 303 Q 863 320 852 331 L 452 732 Q 440 744 424 744 Q 408 744 396 732 L 282 618 Q 271 607 271 590 Q 271 573 282 562 Q 293 551 310 551 Q 327 551 338 562 L 424 648 Z" stroke-linecap="round"/>
+  </g>
+</svg>
