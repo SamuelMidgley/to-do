@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import App from './app'
-import { useEffect, useState } from 'preact/hooks'
+import { useLayoutEffect, useState } from 'preact/hooks'
 import LogIn from './components/log-in/LogIn'
 
 const supabase = createClient(
@@ -11,7 +11,7 @@ const supabase = createClient(
 export default function WrappedApp() {
   const [session, setSession] = useState<any>(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
     })
