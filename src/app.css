@@ -1,7 +1,11 @@
 #app {
-  max-width: 1280px;
+  display: flex;
+  width: 100%;
+}
+
+.app-container {
   margin: 0 auto;
-  padding: 2rem;
+  margin-top: 25px;
 }
 
 .completed-header {
@@ -91,22 +95,11 @@
   outline: none;
 }
 
-.log-off-button-container {
+#app:has(.log-in-form) {
+  margin: 0 auto;
+  padding: 2rem;
   display: flex;
-  justify-content: flex-end;
-}
-
-.log-off-button-container .log-off-button {
-  color: var(--on-background);
-  border: 2px solid var(--add-todo-background);
-  padding: 5px 10px;
-  border-radius: var(--border-radius);
-}
-
-.log-off-button-container .log-off-button:hover {
-  /* background-color: var(--add-todo-background); */
-  border: 2px solid var(--primary);
-  transition: border 0.1s ease-out;
+  justify-content: center;
 }
 
 .log-in-form {
@@ -193,27 +186,12 @@
 }
 
 .check-icon {
-  width: 22px;
-  height: 22px;
-  min-width: 22px;
-  min-height: 22px;
-  border: 2px solid var(--on-background);
-  border-radius: 50%;
-  margin-right: 10px;
-  position: relative;
-}
-
-.check-icon svg {
-  position: absolute;
-  left: 0px;
-  top: 0px;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
   fill: var(--on-background);
 }
 
-.check-icon:hover {
-  border: 2px solid var(--primary);
-}
-
-.check-icon:hover svg {
-  fill: var(--primary);
+.check-icon svg:hover {
+  fill: var(--on-surface);
 }

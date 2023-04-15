@@ -1,4 +1,4 @@
-import CheckIcon from '../../icons/CheckIcon'
+import { CircleIcon, CompleteIcon } from '../../icons'
 
 interface CheckProps {
   checked: boolean
@@ -10,7 +10,7 @@ export default function Check(props: CheckProps) {
 
   return (
     <button type="button" className="check-icon" onClick={setChecked}>
-      {checked && <CheckIcon />}
+      {checked ? <CompleteIcon size="medium" /> : <CircleIcon size="medium" />}
     </button>
   )
 }

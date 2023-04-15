@@ -1,0 +1,54 @@
+.side-bar {
+  height: 100%;
+  width: 250px;
+  background-color: var(--add-todo-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.side-bar .side-bar-sessions {
+  margin-top: 10px;
+}
+
+.side-bar .side-bar-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border-top: 2px solid var(--surface);
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.side-bar .session-button:hover {
+  background-color: var(--surface);
+}
+
+.side-bar .side-bar-button {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  color: var(--on-background);
+  font-size: 0.8rem;
+}
+
+.side-bar .session-button {
+  margin-bottom: 5px;
+}
+
+.side-bar .session-button.active {
+  background-color: var(--surface);
+}
+
+.side-bar .session-button.my-day-button {
+  border: 2px solid var(--surface);
+}
+
+.side-bar .side-bar-settings .settings-button:hover {
+  background-color: var(--surface);
+}

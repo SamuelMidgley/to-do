@@ -1,10 +1,7 @@
 import './app.css'
-import AddToDo from './components/to-do/AddToDo'
-import ToDoItem from './components/to-do/ToDo'
-import ProgressBar from './components/progress-bar/ProgressBar'
+import { AddToDo, ToDoItem, ProgressBar, SideBar } from './components'
 import { useState } from 'preact/hooks'
-import SideBar from './components/side-bar/SideBar'
-import BinIcon from './icons/BinIcon'
+import { BinIcon } from './icons'
 
 export type ToDoState = 'incomplete' | 'hold' | 'completed'
 
@@ -24,7 +21,7 @@ const InitialState: ToDo[] = [
   },
   {
     id: 2,
-    text: 'This is on hold',
+    text: 'Also gotta do this',
     state: 'incomplete',
   },
   {
@@ -41,6 +38,7 @@ export interface AppProps {
 export default function App(props: AppProps) {
   const { supabaseClient } = props
   const [todos, setToDos] = useState<ToDo[]>(InitialState)
+  const [activeGroup, setActiveGroup] = useState<string>('My day')
 
   function setState(id: number, state: ToDoState) {
     setToDos((prev) =>
@@ -93,26 +91,17 @@ export default function App(props: AppProps) {
     )
   }
 
-  async function signOutHandler() {
-    // ADD VALIDATION
-    const { error } = await supabaseClient.auth.signOut()
-
-    console.log(error)
-  }
-
   const incompleteToDos = todos.filter((item) => item.state === 'incomplete')
-  const onHoldToDos = todos.filter((item) => item.state === 'hold')
   const completedToDos = todos.filter((item) => item.state === 'completed')
 
   return (
     <>
-      <SideBar />
-      <div className="log-off-button-container">
-        <button className="log-off-button" onClick={signOutHandler}>
-          Log off
-        </button>
-      </div>
-      <div>
+      <SideBar
+        supabaseClient={supabaseClient}
+        activeGroup={activeGroup}
+        setActiveGroup={setActiveGroup}
+      />
+      <div className="app-container">
         <h1 style={{ margin: '0px' }}>
           {date.toLocaleString('default', { weekday: 'long' })},
         </h1>
@@ -124,7 +113,6 @@ export default function App(props: AppProps) {
           completed={completedToDos.length}
           totalNum={todos.length}
         />
-        <AddToDo addItem={addToDo} />
         <h2>To do</h2>
         <ul>
           {incompleteToDos.map((item) => (
@@ -137,23 +125,7 @@ export default function App(props: AppProps) {
             </li>
           ))}
         </ul>
-
-        {onHoldToDos.length > 0 && (
-          <div>
-            <h3>Paused</h3>
-            <ul>
-              {onHoldToDos.map((item) => (
-                <li key={item.id}>
-                  <ToDoItem
-                    item={item}
-                    setState={setState}
-                    updateText={updateToDo}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <AddToDo addItem={addToDo} />
 
         {completedToDos.length > 0 && (
           <div>

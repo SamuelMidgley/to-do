@@ -12,7 +12,7 @@ This is a simple to do app with a progress bar
 
 - Major feature changes
 
-  - Add button to trial locally (will store to localStorage)
+  - Add button to trial locally (use localStorage)
   - Side bar to allow multiple tabs
   - Store to do items in Supabase
   - Accesibility improvements
