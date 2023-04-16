@@ -10,20 +10,28 @@ const supabase = createClient(
 
 export default function WrappedApp() {
   const [session, setSession] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
   useLayoutEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
+      setLoading(false)
     })
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
+      setLoading(false)
     })
 
     return () => subscription.unsubscribe()
   }, [])
+
+  if (loading) {
+    // Should probably add loading state but its so rapid not sure it's needed
+    return <div />
+  }
 
   if (!session) {
     return <LogIn supabaseClient={supabase} />

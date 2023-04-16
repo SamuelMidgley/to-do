@@ -77,8 +77,9 @@
   background-color: var(--primary);
 }
 
-.progress-bar-container .onhold-bar {
-  background-color: var(--yellow);
+.progress-bar-container .completed-bar.completed {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 .progress-bar-container .todo-bar {

@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+
 interface ProgressBarProps {
   completed: number
   totalNum: number
@@ -17,7 +19,9 @@ export default function ProgressBar(props: ProgressBarProps) {
     <div className="progress-bar-container">
       {completed > 0 && (
         <div
-          className="completed-bar"
+          className={classNames('completed-bar', {
+            completed: completedPercentage === 100,
+          })}
           style={{ width: `${completedPercentage}%` }}
         />
       )}

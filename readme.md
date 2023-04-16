@@ -16,6 +16,7 @@ This is a simple to do app with a progress bar
   - Side bar to allow multiple tabs
   - Store to do items in Supabase
   - Accesibility improvements
+  - Drag n Drop
 
 - Minor feature changes
 
