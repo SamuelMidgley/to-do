@@ -1,3 +1,4 @@
+import { Group } from '../../app'
 import {
   CircleIcon,
   CompleteIcon,
@@ -14,16 +15,11 @@ interface SideBarProps {
   supabaseClient: any
   activeGroup: string
   setActiveGroup: (newGroup: string) => void
-}
-
-interface Session {
-  id: number
-  title: string
-  completed: boolean
+  groups: Group[]
 }
 
 export default function SideBar(props: SideBarProps) {
-  const { supabaseClient, activeGroup, setActiveGroup } = props
+  const { supabaseClient, groups, activeGroup, setActiveGroup } = props
 
   async function signOutHandler() {
     // ADD VALIDATION
@@ -31,21 +27,6 @@ export default function SideBar(props: SideBarProps) {
 
     console.log(error)
   }
-
-  const sessions: Session[] = [
-    {
-      id: 1,
-      title: 'Portfolio',
-      completed: true,
-    },
-    {
-      id: 2,
-      title: 'Gym app',
-      completed: false,
-    },
-  ]
-
-  function onSessionClickHandler(title: string) {}
 
   return (
     <div className="side-bar">
@@ -63,22 +44,25 @@ export default function SideBar(props: SideBarProps) {
           <DayIcon />
           My day
         </button>
-        {sessions.map((s) => (
-          <button
-            type="button"
-            className={classnames('side-bar-button session-button', {
-              active: activeGroup === s.title,
-            })}
-            onClick={() => setActiveGroup(s.title)}
-          >
-            {s.completed ? (
-              <CompleteIcon size="small" />
-            ) : (
-              <CircleIcon size="small" />
-            )}
-            {s.title}
-          </button>
-        ))}
+        {groups &&
+          groups.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              className={classnames('side-bar-button session-button', {
+                active: activeGroup === s.title,
+              })}
+              onClick={() => setActiveGroup(s.title)}
+            >
+              {/* This needs working out */}
+              {true ? (
+                <CompleteIcon size="small" />
+              ) : (
+                <CircleIcon size="small" />
+              )}
+              {s.title}
+            </button>
+          ))}
         <button type="button" className="side-bar-button session-button">
           <PlusIcon />
           New group
