@@ -16,8 +16,6 @@ This is a simple to do app with a progress bar
   - Side bar to allow multiple tabs
   - Store to do items in Supabase
   - Accesibility improvements
-  - Create own API rather than using supabase
-  - Move to PlanetScale
 
 - Minor feature changes
 
@@ -27,3 +25,4 @@ This is a simple to do app with a progress bar
 - Architectural changes
   - Create own API rather than using supabase
   - Move to PlanetScale
+  - Create Electron version
