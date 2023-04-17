@@ -24,7 +24,7 @@ export default function App(props: AppProps) {
   const { supabaseClient } = props
   const [todos, setToDos] = useState<ToDo[]>(new Array<ToDo>())
   const [groups, setGroups] = useState<Group[]>(new Array<Group>())
-  const [activeGroup, setActiveGroup] = useState<string>('My day')
+  const [activeGroup, setActiveGroup] = useState<number>(0)
 
   function setState(id: number, state: boolean) {
     supabaseClient
@@ -74,7 +74,7 @@ export default function App(props: AppProps) {
     // update
     supabaseClient
       .from('todos')
-      .update({ cleared: true })
+      .delete()
       .in('id', completedToDoIds)
       .then((resp: any) => {
         const { data, error } = resp
@@ -82,8 +82,6 @@ export default function App(props: AppProps) {
           console.error(error)
           return
         }
-
-        console.log(data)
 
         setToDos((prev) =>
           prev.filter((item) => !completedToDoIds.includes(item.id))
@@ -192,7 +190,6 @@ export default function App(props: AppProps) {
     supabaseClient
       .from('todos')
       .select()
-      .eq('cleared', false)
       .then((result: any) => {
         const { data, error } = result
         if (error) {
@@ -216,6 +213,67 @@ export default function App(props: AppProps) {
       })
   }, [])
 
+  function handleActiveGroupChange(newId: number) {
+    if (newId === activeGroup) {
+      return
+    }
+    setActiveGroup(newId)
+
+    if (newId === 0) {
+      supabaseClient
+        .from('todos')
+        .select()
+        .then((result: any) => {
+          const { data, error } = result
+          if (error) {
+            console.error(error)
+          }
+
+          console.log(data)
+
+          const todos: ToDo[] = data.map((d: any) => {
+            return {
+              id: d.id,
+              title: d.title,
+              completed: d.completed,
+            }
+          })
+
+          setToDos(todos)
+        })
+        .catch((err: any) => {
+          console.error(err)
+        })
+      return
+    }
+
+    supabaseClient
+      .from('todos')
+      .select()
+      .eq('group_id', newId)
+      .then((result: any) => {
+        const { data, error } = result
+        if (error) {
+          console.error(error)
+        }
+
+        console.log(data)
+
+        const todos: ToDo[] = data.map((d: any) => {
+          return {
+            id: d.id,
+            title: d.title,
+            completed: d.completed,
+          }
+        })
+
+        setToDos(todos)
+      })
+      .catch((err: any) => {
+        console.error(err)
+      })
+  }
+
   const incompleteToDos = todos.filter((item) => !item.completed)
   const completedToDos = todos.filter((item) => item.completed)
 
@@ -225,16 +283,25 @@ export default function App(props: AppProps) {
         supabaseClient={supabaseClient}
         groups={groups}
         activeGroup={activeGroup}
-        setActiveGroup={setActiveGroup}
+        setActiveGroup={handleActiveGroupChange}
       />
       <div className="app-container">
-        <h1 style={{ margin: '0px' }}>
-          {date.toLocaleString('default', { weekday: 'long' })},
-        </h1>
-        <h2 style={{ marginTop: '0px' }}>
-          {date.toLocaleString('default', { day: 'numeric' })}&nbsp;
-          {date.toLocaleString('default', { month: 'long' })}
-        </h2>
+        {activeGroup === 0 ? (
+          <>
+            <h1 style={{ margin: '0px' }}>
+              {date.toLocaleString('default', { weekday: 'long' })},
+            </h1>
+            <h2 style={{ marginTop: '0px' }}>
+              {date.toLocaleString('default', { day: 'numeric' })}&nbsp;
+              {date.toLocaleString('default', { month: 'long' })}
+            </h2>
+          </>
+        ) : (
+          <h1 style={{ margin: '0px', marginBottom: '25px' }}>
+            {groups.filter((g) => g.id === activeGroup)[0].title}
+          </h1>
+        )}
+
         <ProgressBar
           completed={completedToDos.length}
           totalNum={todos.length}

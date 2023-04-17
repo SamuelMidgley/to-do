@@ -13,8 +13,8 @@ import classnames from 'classnames'
 
 interface SideBarProps {
   supabaseClient: any
-  activeGroup: string
-  setActiveGroup: (newGroup: string) => void
+  activeGroup: number
+  setActiveGroup: (newGroup: number) => void
   groups: Group[]
 }
 
@@ -36,10 +36,10 @@ export default function SideBar(props: SideBarProps) {
           className={classnames(
             'side-bar-button session-button my-day-button',
             {
-              active: activeGroup === 'My day',
+              active: activeGroup === 0,
             }
           )}
-          onClick={() => setActiveGroup('My day')}
+          onClick={() => setActiveGroup(0)}
         >
           <DayIcon />
           My day
@@ -50,9 +50,9 @@ export default function SideBar(props: SideBarProps) {
               key={s.id}
               type="button"
               className={classnames('side-bar-button session-button', {
-                active: activeGroup === s.title,
+                active: activeGroup === s.id,
               })}
-              onClick={() => setActiveGroup(s.title)}
+              onClick={() => setActiveGroup(s.id)}
             >
               {/* This needs working out */}
               {true ? (

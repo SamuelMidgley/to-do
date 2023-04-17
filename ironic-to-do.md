@@ -3,8 +3,8 @@
 # Next steps
 
 - Make groups work
-  - Change title in app
-  - Load in correct to dos
+  - Change title in app (DONE)
+  - Load in correct to dos (DONE)
   - Add correctly
   - New group
   - Change name
@@ -14,6 +14,7 @@
 
 - Add loading state as log in page flickers on initial load (DONE)
 - Progress bar isn't curved when all to dos are complete (DONE)
+- Click enter on log in page should sign you in
 
 # Features
 
