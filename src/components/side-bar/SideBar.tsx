@@ -12,20 +12,16 @@ import './SideBar.css'
 import classnames from 'classnames'
 
 interface SideBarProps {
-  supabaseClient: any
   activeGroup: number
   setActiveGroup: (newGroup: number) => void
   groups: Group[]
 }
 
 export default function SideBar(props: SideBarProps) {
-  const { supabaseClient, groups, activeGroup, setActiveGroup } = props
+  const { groups, activeGroup, setActiveGroup } = props
 
   async function signOutHandler() {
     // ADD VALIDATION
-    const { error } = await supabaseClient.auth.signOut()
-
-    console.log(error)
   }
 
   return (

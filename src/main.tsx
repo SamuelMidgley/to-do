@@ -1,5 +1,5 @@
 import { render } from 'preact'
 import './index.css'
-import WrappedApp from './WrappedApp'
+import App from './app'
 
-render(<WrappedApp />, document.getElementById('app') as HTMLElement)
+render(<App />, document.getElementById('app') as HTMLElement)
