@@ -1,15 +1,12 @@
-import { ToDo } from '../../app'
-import Check from '../check/Check'
-import TextEditor from '../text-editor/TextEditor'
+import { IToDo } from '../../types'
+import { Check } from '..'
+import './ToDo.css'
 
 interface ToDoProps {
-  item: ToDo
-  setState: (id: number, state: boolean) => void
-  updateText: (id: number, text: string) => void
+  item: IToDo
 }
 
-export default function ToDoItem(props: ToDoProps) {
-  const { item, setState, updateText } = props
+export default function ToDoItem({ item }: ToDoProps) {
   const { id, title, completed } = item
 
   function onChangeHandler(newVal: string) {
@@ -21,7 +18,11 @@ export default function ToDoItem(props: ToDoProps) {
   return (
     <div className="to-do-item">
       <Check checked={completed} setChecked={() => setState(id, !completed)} />
-      <TextEditor value={title} setValue={onChangeHandler} />
+      <input
+        className="input"
+        value={title}
+        onInput={(e) => onChangeHandler(e.currentTarget.value)}
+      />
     </div>
   )
 }

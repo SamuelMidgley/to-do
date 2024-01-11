@@ -1,29 +1,9 @@
-# Progress To Do
+# Not another to do app
 
-This is a simple to do app with a progress bar
+Settings
 
-## Tech Stack
-
-- Preact
-- Vite
-- Supabase
-
-## Roadmap
-
-- Major feature changes
-
-  - Add button to trial locally (use localStorage)
-  - Side bar to allow multiple tabs
-  - Store to do items in Supabase
-  - Accesibility improvements
-  - Drag n Drop
-
-- Minor feature changes
-
-  - Settings (Light mode, Change colors)
-  - Add Social Auth (Github, Google, etc)
-
-- Architectural changes
-  - Create own API rather than using supabase
-  - Move to PlanetScale
-  - Create Electron version
+- Delete individual group
+- Delete individual todo
+- Delete all groups
+- Change colors
+- Circle group when all of them are incomplete

@@ -1,4 +1,4 @@
-#app {
+#root {
   display: flex;
   width: 100%;
 }
@@ -14,185 +14,58 @@
   justify-content: space-between;
 }
 
-/* To do */
-.to-do-item {
-  background-color: var(--surface);
-  padding: 10px 10px;
+:root {
+  --background: #1e1e1e;
+  --surface: #3b3b3b;
+  --add-todo-background: #2a2a2a;
+  --primary: #6e00ff;
+  --primary-hover: #37007f;
+  --secondary: blue;
+  --on-background: #d3d3d3;
+  --on-surface: #ffffff;
+  --on-primary: #ffffff;
+  --on-secondary: #ffffff;
+  --green: #008000;
+  --yellow: #999900;
+  --red: #990000;
+  --border-radius: 5px;
+  --red-light: #ff4136;
+  --red-dark: #b30000;
+}
+
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  margin: 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 10px 0;
-  border-radius: var(--border-radius);
-  width: 380px;
-  min-height: 30px;
-}
+  min-width: 320px;
+  min-height: 100vh;
 
-.to-do-item .to-do-input {
-  background-color: transparent;
-  border: 0px;
-  font-size: inherit;
-  font-family: inherit;
-  resize: none;
-  color: var(--on-surface);
-}
-
-.to-do-item .to-do-input:focus {
-  outline: 0px;
-}
-
-.to-do-item .to-do-add-button {
-  color: var(--on-surface);
-}
-
-.to-do-item.add-to-do {
-  background-color: var(--add-todo-background);
-}
-
-/* Progress bar */
-.progress-bar-container {
-  border-radius: 25px;
-  height: 10px;
-  width: 100%;
-  display: flex;
-  padding: 10px 0;
-}
-
-.progress-bar-container .completed-bar,
-.progress-bar-container .onhold-bar,
-.progress-bar-container .todo-bar {
-  height: 100%;
-}
-
-.progress-bar-container > div:first-child {
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-}
-
-.progress-bar-container > div:last-child {
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
-.progress-bar-container .completed-bar {
-  background-color: var(--primary);
-}
-
-.progress-bar-container .completed-bar.completed {
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
-.progress-bar-container .todo-bar {
-  background-color: var(--surface);
-}
-
-.text-editor {
-  min-height: 24px;
-  width: 100%;
-  word-break: break-all;
-}
-
-.text-editor:focus-visible {
-  outline: none;
-}
-
-#app:has(.log-in-form) {
-  margin: 0 auto;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-}
-
-.log-in-form {
-  width: 400px;
-}
-
-.log-in-form h1 {
-  margin-bottom: 0px;
-}
-
-.log-in-form .log-in-subtitle {
-  display: flex;
-  font-size: 0.8rem;
-  margin-bottom: 10px;
-}
-
-.log-in-form .log-in-subtitle button {
-  color: var(--primary);
-  font-weight: normal;
-}
-
-.log-in-form .log-in-subtitle button:hover {
-  color: var(--on-background);
-}
-
-.log-in-form .log-in-input {
   background-color: var(--background);
-  border: 0px;
-  color: var(--on-background);
-  padding: 5px;
-  flex-grow: 1;
-}
-
-.log-in-form .log-in-input:focus-visible {
-  outline: 0px;
   color: var(--on-background);
 }
 
-.log-in-form .log-in-submit {
-  width: 100%;
-  padding: 5px 10px;
-  border-radius: var(--border-radius);
-  color: var(--on-primary);
-  background-color: var(--primary);
-  margin-top: 10px;
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0px;
+  background-color: transparent;
 }
 
-.log-in-form .log-in-submit:hover {
-  background-color: var(--primary-hover);
-  transition: background-color 0.1s ease;
+ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
 }
 
-.input-wrapper {
-  border: 2px solid var(--add-todo-background);
-  border-radius: var(--border-radius);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 10px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+p {
+  margin: 0px;
 }
 
-.input-wrapper svg {
+svg {
   fill: var(--on-background);
-  margin-right: 3px;
-}
-
-.input-wrapper:has(input:focus-visible) {
-  border-color: var(--surface);
-}
-
-.log-in-input:-webkit-autofill {
-  -webkit-text-fill-color: var(--on-background);
-  -webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
-}
-
-.log-in-error {
-  border: 2px solid var(--red-dark);
-  border-radius: var(--border-radius);
-  color: var(--red-light);
-  padding: 8px 10px;
-  margin-bottom: 5px;
-}
-
-.check-icon {
-  display: flex;
-  align-items: center;
-  margin-right: 5px;
-  fill: var(--on-background);
-}
-
-.check-icon svg:hover {
-  fill: var(--on-surface);
 }

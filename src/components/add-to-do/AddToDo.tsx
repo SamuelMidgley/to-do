@@ -1,12 +1,6 @@
-import { useState } from 'preact/hooks'
-import TextEditor from '../text-editor/TextEditor'
+import { useState } from 'react'
 
-interface AddToDoProps {
-  addItem: (text: string) => void
-}
-
-export default function AddToDo(props: AddToDoProps) {
-  const { addItem } = props
+export default function AddToDo() {
   const [value, setValue] = useState('')
 
   function addNewToDo() {
@@ -14,13 +8,24 @@ export default function AddToDo(props: AddToDoProps) {
     setValue('')
   }
 
-  function onChangeHandler(newVal: string) {
-    setValue(newVal)
+  function onKeyDownHandler(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      e.stopPropagation()
+      e.preventDefault()
+      addNewToDo()
+    }
   }
 
   return (
     <div className="to-do-item add-to-do">
-      <TextEditor value={value} setValue={onChangeHandler} />
+      <input
+        className="input"
+        value={value}
+        onChange={(e) => {
+          setValue(e.currentTarget.value)
+        }}
+        onKeyDown={onKeyDownHandler}
+      />
       <button className="to-do-add-button" type="button" onClick={addNewToDo}>
         +
       </button>

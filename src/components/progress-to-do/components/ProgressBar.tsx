@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import './ProgressBar.css'
 
 interface ProgressBarProps {
   completed: number

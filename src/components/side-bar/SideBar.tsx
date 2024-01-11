@@ -1,27 +1,35 @@
-import { Group } from '../../app'
+import { useRef, useState } from 'react'
 import {
   CircleIcon,
   CompleteIcon,
   DayIcon,
-  LogOutIcon,
   PlusIcon,
   SettingsIcon,
 } from '../../icons'
+import { AddGroup } from './AddGroup'
 import './SideBar.css'
 
 import classnames from 'classnames'
 
-interface SideBarProps {
-  activeGroup: number
-  setActiveGroup: (newGroup: number) => void
-  groups: Group[]
-}
+export default function SideBar() {
+  const [creatingGroup, setCreatingGroup] = useState(false)
+  const ref = useRef<HTMLDialogElement>(null)
 
-export default function SideBar(props: SideBarProps) {
-  const { groups, activeGroup, setActiveGroup } = props
+  function handleActiveGroupChange(newGroupId: string) {
+    setActiveGroup(newGroupId)
 
-  async function signOutHandler() {
-    // ADD VALIDATION
+    // On page load
+    // Check if we have any data saved
+    const savedData = window.localStorage.getItem(newGroupId)
+
+    if (!savedData) {
+      setToDos(new Array<IToDo>())
+      return
+    }
+
+    const loadedToDos: IToDo[] = JSON.parse(savedData)
+
+    setToDos(loadedToDos)
   }
 
   return (
@@ -32,10 +40,10 @@ export default function SideBar(props: SideBarProps) {
           className={classnames(
             'side-bar-button session-button my-day-button',
             {
-              active: activeGroup === 0,
+              active: activeGroup === 'My day',
             }
           )}
-          onClick={() => setActiveGroup(0)}
+          onClick={() => setActiveGroup('My day')}
         >
           <DayIcon />
           My day
@@ -43,12 +51,12 @@ export default function SideBar(props: SideBarProps) {
         {groups &&
           groups.map((s) => (
             <button
-              key={s.id}
+              key={s}
               type="button"
               className={classnames('side-bar-button session-button', {
-                active: activeGroup === s.id,
+                active: activeGroup === s,
               })}
-              onClick={() => setActiveGroup(s.id)}
+              onClick={() => setActiveGroup(s)}
             >
               {/* This needs working out */}
               {true ? (
@@ -56,26 +64,37 @@ export default function SideBar(props: SideBarProps) {
               ) : (
                 <CircleIcon size="small" />
               )}
-              {s.title}
+              {s}
             </button>
           ))}
-        <button type="button" className="side-bar-button session-button">
-          <PlusIcon />
-          New group
-        </button>
+        {creatingGroup ? (
+          <AddGroup
+            handleChange={(title: string | null) => {
+              if (title) {
+                addGroup(title)
+              }
+
+              setCreatingGroup(false)
+            }}
+            blurHandler={() => setCreatingGroup(false)}
+          />
+        ) : (
+          <button
+            type="button"
+            className="side-bar-button session-button"
+            onClick={() => setCreatingGroup(true)}
+          >
+            <PlusIcon />
+            New group
+          </button>
+        )}
       </div>
       <div className="side-bar-settings">
         <button type="button" className="side-bar-button settings-button">
           <SettingsIcon /> Settings
         </button>
-        <button
-          type="button"
-          className="side-bar-button settings-button"
-          onClick={signOutHandler}
-        >
-          <LogOutIcon /> Log Out
-        </button>
       </div>
+      <dialog ref={ref}>Hello</dialog>
     </div>
   )
 }

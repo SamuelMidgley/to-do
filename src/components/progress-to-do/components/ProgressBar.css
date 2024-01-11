@@ -1,0 +1,37 @@
+/* Progress bar */
+.progress-bar-container {
+    border-radius: 25px;
+    height: 10px;
+    width: 100%;
+    display: flex;
+    padding: 10px 0;
+  }
+  
+  .progress-bar-container .completed-bar,
+  .progress-bar-container .onhold-bar,
+  .progress-bar-container .todo-bar {
+    height: 100%;
+  }
+  
+  .progress-bar-container > div:first-child {
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+  }
+  
+  .progress-bar-container > div:last-child {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+  
+  .progress-bar-container .completed-bar {
+    background-color: var(--primary);
+  }
+  
+  .progress-bar-container .completed-bar.completed {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+  
+  .progress-bar-container .todo-bar {
+    background-color: var(--surface);
+  }
