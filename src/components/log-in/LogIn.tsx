@@ -1,15 +1,10 @@
-import { useRef, useState } from 'preact/hooks'
+import { useRef, useState } from 'react'
 import EmailIcon from '../../icons/EmailIcon'
 import LockIcon from '../../icons/LockIcon'
 import EyeIcon from '../../icons/EyeIcon'
+import './Login.css'
 
-interface LogInProps {
-  supabaseClient: any
-}
-
-export default function LogIn(props: LogInProps) {
-  const { supabaseClient } = props
-
+export default function LogIn() {
   const [isLoggingIn, setIsLoggingIn] = useState(true)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -23,17 +18,6 @@ export default function LogIn(props: LogInProps) {
     if (email?.length === 0 || password?.length === 0) {
       setLogInError(true)
       return
-    }
-
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password,
-    })
-
-    if (error) {
-      setLogInError(true)
-    } else {
-      setLogInError(false)
     }
   }
 
@@ -54,21 +38,10 @@ export default function LogIn(props: LogInProps) {
     if (password !== reEnterPassword) {
       setLogInError(true)
     }
-
-    const { data, error } = await supabaseClient.auth.signUp({
-      email,
-      password,
-    })
-
-    if (error) {
-      setLogInError(true)
-    } else {
-      setLogInError(false)
-    }
   }
 
   function toggleShowPassword(isReEnter: boolean) {
-    let ref = isReEnter ? reEnterPasswordRef : passwordRef
+    const ref = isReEnter ? reEnterPasswordRef : passwordRef
     if (!ref.current) {
       return
     }
@@ -170,7 +143,6 @@ export default function LogIn(props: LogInProps) {
               {reEnterPassword.length > 0 && (
                 <button
                   title="Click to reveal"
-                  label="Click to reveal"
                   type="button"
                   onClick={() => toggleShowPassword(true)}
                 >

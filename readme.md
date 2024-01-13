@@ -1,29 +1,11 @@
-# Progress To Do
+# Not another to do app
 
-This is a simple to do app with a progress bar
+Features
+Theme colors on settings page
+Side bar should be present if page is large enough
+Focus dialog with countdown
 
-## Tech Stack
-
-- Preact
-- Vite
-- Supabase
-
-## Roadmap
-
-- Major feature changes
-
-  - Add button to trial locally (will store to localStorage)
-  - Side bar to allow multiple tabs
-  - Store to do items in Supabase
-  - Accesibility improvements
-  - Create own API rather than using supabase
-  - Move to PlanetScale
-
-- Minor feature changes
-
-  - Settings (Light mode, Change colors)
-  - Add Social Auth (Github, Google, etc)
-
-- Architectural changes
-  - Create own API rather than using supabase
-  - Move to PlanetScale
+Bugs
+Deleting groups should put you back onto my day
+Close dialog when group is added
+Deleting completed to dos doesn't reset the group completed state in the side bar
