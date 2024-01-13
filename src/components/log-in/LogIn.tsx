@@ -41,7 +41,7 @@ export default function LogIn() {
   }
 
   function toggleShowPassword(isReEnter: boolean) {
-    let ref = isReEnter ? reEnterPasswordRef : passwordRef
+    const ref = isReEnter ? reEnterPasswordRef : passwordRef
     if (!ref.current) {
       return
     }
@@ -143,7 +143,6 @@ export default function LogIn() {
               {reEnterPassword.length > 0 && (
                 <button
                   title="Click to reveal"
-                  label="Click to reveal"
                   type="button"
                   onClick={() => toggleShowPassword(true)}
                 >

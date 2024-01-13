@@ -1,9 +1,10 @@
 import { useEffect, useLayoutEffect } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import { ProgressBar, ToDoHeader, ToDoList } from '@/components'
+import { ToDoHeader, ToDoList } from '@/components'
+import { Progress } from '@/components/ui/progress'
 import { IToDo, IGroup } from '@/types'
-import { useToDoStore } from '@/store/todo'
-import { useGroupStore } from '@/store/group'
+import { useToDoStore } from '@/stores/todo'
+import { useGroupStore } from '@/stores/group'
 
 export default function ProgressToDo() {
   // To do store
@@ -40,10 +41,13 @@ export default function ProgressToDo() {
   const completedToDos = toDos.filter((item) => item.completed)
 
   return (
-    <div className="app-container">
+    <>
       <ToDoHeader />
-      <ProgressBar completed={completedToDos.length} totalNum={toDos.length} />
+      <Progress
+        className="mb-4"
+        value={(completedToDos.length / toDos.length) * 100}
+      />
       <ToDoList />
-    </div>
+    </>
   )
 }
