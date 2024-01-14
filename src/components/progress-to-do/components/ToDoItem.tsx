@@ -1,8 +1,8 @@
-import { IToDo } from '@/types'
-import { useToDoStore } from '@/stores/todo'
 import { Card } from '@/components/ui/card'
 import { Check } from '@/components/progress-to-do/components/Check'
 import { ToDoOptions } from '@/components/progress-to-do/components/ToDoOptions'
+import { IToDo } from '@/types'
+import { useToDoStore } from '@/stores/todo'
 
 interface ToDoProps {
   item: IToDo
@@ -26,7 +26,7 @@ export function ToDoItem({ item }: ToDoProps) {
         setChecked={() => setToDoState(id, !completed)}
       />
       <input
-        className="flex-grow focus:outline-none bg-background"
+        className="flex-grow focus:outline-none bg-card"
         value={title}
         onInput={(e) => onChangeHandler(e.currentTarget.value)}
       />

@@ -1,9 +1,9 @@
+import { useState } from 'react'
 import { GearIcon } from '@radix-ui/react-icons'
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { IGroup } from '@/types'
-import { useState } from 'react'
 import { useGroupStore } from '@/stores/group'
 
 interface IGroupSettings {

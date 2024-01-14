@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useToDoStore } from '@/stores/todo'
 
-export default function AddToDo() {
+export function AddToDo() {
   const addToDo = useToDoStore((state) => state.addToDo)
   const [value, setValue] = useState('')
 
@@ -24,7 +24,7 @@ export default function AddToDo() {
   return (
     <Card className="flex p-2 mt-2 mb-4">
       <input
-        className="flex-grow focus:outline-none bg-background"
+        className="flex-grow focus:outline-none bg-card"
         value={value}
         onChange={(e) => {
           setValue(e.currentTarget.value)

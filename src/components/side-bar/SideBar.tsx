@@ -1,3 +1,4 @@
+import { HamburgerMenuIcon, SunIcon } from '@radix-ui/react-icons'
 import {
   Sheet,
   SheetTrigger,
@@ -6,11 +7,10 @@ import {
   SheetFooter,
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
-import { HamburgerMenuIcon, SunIcon } from '@radix-ui/react-icons'
 import { Separator } from '@/components/ui/separator'
 import { Settings } from '@/components/settings/Settings'
-import { GroupList } from '@/components/GroupList'
-import { NewGroup } from '@/components/NewGroup'
+import { GroupList } from '@/components/side-bar/GroupList'
+import { NewGroup } from '@/components/side-bar/NewGroup'
 import { useGroupStore } from '@/stores/group'
 
 export function SideBar() {

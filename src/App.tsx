@@ -1,7 +1,6 @@
-// import { SideBar } from './components'
-import ProgressToDo from '@/components/progress-to-do/ProgressToDo'
-import { ThemeProvider } from '@/components/ThemeProvider'
-import { Header } from './components/Header'
+import { ProgressToDo } from '@/components/progress-to-do/ProgressToDo'
+import { ThemeProvider } from '@/components/theme/ThemeProvider'
+import { Header } from '@/components/header/Header'
 
 export default function App() {
   return (

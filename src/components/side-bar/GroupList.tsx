@@ -1,5 +1,5 @@
+import { GroupButton } from '@/components/side-bar/GroupButton'
 import { useGroupStore } from '@/stores/group'
-import { GroupButton } from './GroupButton'
 
 export function GroupList() {
   const groups = useGroupStore((state) => state.groups)

@@ -3,7 +3,7 @@ import { useGroupStore } from '@/stores/group'
 
 const date = new Date()
 
-export default function ToDoHeader() {
+export function ToDoHeader() {
   const activeGroupId = useGroupStore((state) => state.activeGroup)
   const groups = useGroupStore(useShallow((state) => state.groups))
 

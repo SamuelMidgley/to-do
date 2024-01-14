@@ -1,9 +1,10 @@
-import { AddToDo, CompletedToDos, IncompleteToDos } from '@/components'
+import { AddToDo } from './AddToDo'
+import { CompletedToDos } from './CompletedToDos'
+import { IncompleteToDos } from './IncompleteToDos'
 
-export default function ToDoList() {
+export function ToDoList() {
   return (
     <>
-      {/* <h2 className="text-2xl font-semibold mb-4">To do</h2> */}
       <IncompleteToDos />
       <AddToDo />
       <CompletedToDos />
