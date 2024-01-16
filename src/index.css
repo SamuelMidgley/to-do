@@ -3,8 +3,20 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  .radius-0 {
+    --radius: 0rem;
+  }
+  .radius-3 {
+    --radius: 0.3rem;
+  }
+  .radius-5 {
     --radius: 0.5rem;
+  }
+  .radius-75 {
+    --radius: 0.75rem;
+  }
+  .radius-1 {
+    --radius: 1rem;
   }
 
   .zinc {

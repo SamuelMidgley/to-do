@@ -7,8 +7,8 @@ Features
 - [x] Theme colors on settings page
 - [ ] Side bar should be present if page is large enough
 - [ ] Focus dialog with countdown
-- [ ] Change border radius in settings page
-- [ ] Change theme in settings page
+- [x] Change border radius in settings page
+- [x] Change theme in settings page
 - [ ] Tests, e2e in Playwright, Component, unit
 
 Bugs
