@@ -16,7 +16,7 @@ interface Actions {
   deleteGroup: (id: string) => void
 }
 
-export const useGroupStore = create<State & Actions>((set) => ({
+export const useGroupStore = create<State & Actions>((set, get) => ({
   groups: [
     {
       id: 'My day',
@@ -27,17 +27,21 @@ export const useGroupStore = create<State & Actions>((set) => ({
   activeGroup: 'My day',
   setActiveGroup: (id) => set({ activeGroup: id }),
   addGroup: (title) => {
+    const newGroupId = nanoid()
+
     const newGroup = {
-      id: nanoid(),
+      id: newGroupId,
       title,
       completed: false,
     }
 
     set((state) => {
       const newGroups = state.groups.concat([newGroup])
-      window.localStorage.setItem('todo-groups', JSON.stringify(newGroups))
+      window.localStorage.setItem('to-do-groups', JSON.stringify(newGroups))
       return { groups: newGroups }
     })
+
+    get().setActiveGroup(newGroupId)
   },
   setGroups: (newGroups) => set({ groups: newGroups }),
   setGroupComplete: (isComplete) =>
@@ -53,8 +57,8 @@ export const useGroupStore = create<State & Actions>((set) => ({
       }),
     })),
   updateGroup: (id, title) =>
-    set((state) => ({
-      groups: state.groups.map((g) => {
+    set((state) => {
+      const newGroups = state.groups.map((g) => {
         if (g.id === id) {
           return {
             ...g,
@@ -62,10 +66,24 @@ export const useGroupStore = create<State & Actions>((set) => ({
           }
         }
         return g
-      }),
-    })),
-  deleteGroup: (id) =>
-    set((state) => ({
-      groups: state.groups.filter((g) => g.id !== id),
-    })),
+      })
+
+      window.localStorage.setItem('to-do-groups', JSON.stringify(newGroups))
+
+      return {
+        groups: newGroups,
+      }
+    }),
+  deleteGroup: (id) => {
+    get().setActiveGroup('My day')
+    set((state) => {
+      const newGroups = state.groups.filter((g) => g.id !== id)
+      window.localStorage.setItem('to-do-groups', JSON.stringify(newGroups))
+
+      return {
+        groups: newGroups,
+      }
+    })
+    window.localStorage.removeItem(`to-do-${id}`)
+  },
 }))

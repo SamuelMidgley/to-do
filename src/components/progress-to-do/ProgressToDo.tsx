@@ -1,7 +1,7 @@
-import { useEffect, useLayoutEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import { ToDoHeader } from './components/ToDoHeader'
-import { ToDoList } from './components/ToDoList'
+import { ToDoHeader } from '@/components/progress-to-do/components/ToDoHeader'
+import { ToDoList } from '@/components/progress-to-do/components/ToDoList'
 import { Progress } from '@/components/ui/progress'
 import { IToDo, IGroup } from '@/types'
 import { useToDoStore } from '@/stores/todo'
@@ -13,31 +13,37 @@ export function ProgressToDo() {
   const setToDos = useToDoStore((state) => state.setToDos)
 
   // Group store
-  const activeGroupId = useGroupStore((state) => state.activeGroup)
+  const activeGroup = useGroupStore((state) => state.activeGroup)
   const setGroups = useGroupStore((state) => state.setGroups)
 
   useLayoutEffect(() => {
     // runs once on page load to see if there is any existing data
-    const myDay = window.localStorage.getItem('My day')
-    const groups = window.localStorage.getItem('todo-groups')
+    const myDay = window.localStorage.getItem('to-do-My day')
+    const groups = window.localStorage.getItem('to-do-groups')
 
-    if (!myDay || !groups) {
-      // nothing to load
-      return
+    if (myDay) {
+      const loadedToDos: IToDo[] = JSON.parse(myDay)
+      setToDos(loadedToDos)
     }
 
-    const loadedToDos: IToDo[] = JSON.parse(myDay)
-    const loadedGroups: IGroup[] = JSON.parse(groups)
-
-    setToDos(loadedToDos)
-    setGroups(loadedGroups)
+    if (groups) {
+      const loadedGroups: IGroup[] = JSON.parse(groups)
+      setGroups(loadedGroups)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    window.localStorage.setItem(activeGroupId, JSON.stringify(toDos))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [toDos])
+  useLayoutEffect(() => {
+    const loadedToDos = window.localStorage.getItem(`to-do-${activeGroup}`)
+
+    if (loadedToDos) {
+      const toDos: IToDo[] = JSON.parse(loadedToDos)
+      setToDos(toDos)
+      return
+    }
+
+    setToDos(new Array<IToDo>())
+  }, [activeGroup])
 
   const completedToDos = toDos.filter((item) => item.completed)
 

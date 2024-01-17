@@ -53,7 +53,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 export function ThemeProvider({
   children,
   defaultTheme = 'system',
-  storageKey = 'vite-ui-theme',
+  storageKey = 'to-do-ui-theme',
   colorKey = 'to-do-color',
   defaultColor = 'zinc',
   defaultRadius = 'radius-5',

@@ -13,10 +13,17 @@ Features
 
 Bugs
 
-- [ ] Deleting groups should put you back onto my day
-- [ ] Close dialog when group is added
-- [ ] Close panel when group selected
+- [x] Deleting groups should put you back onto my day
+- [x] Close dialog when group is added
+- [x] Close panel when group selected
 - [ ] Deleting completed to dos doesn't reset the group completed state in the side bar
-- [ ] On new load My day group appears twice
-- [ ] Deleting groups not being deleted when page is refreshed
-- [ ] To dos aren't saved...
+- [x] On new load My day group appears twice
+- [x] To dos aren't saved...
+- [x] Delete todos when deleting group
+- [x] Swapping groups should swap to dos
+- [x] Should be clear which group is active
+- [x] Groups aren't saving
+- [x] To dos aren't rounded
+- [x] Creating group should close panel and set active group
+- [x] Rename group doesn't work
+- [x] Delete group doesn't save

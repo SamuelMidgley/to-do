@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -19,7 +20,12 @@ const formSchema = z.object({
   name: z.string().min(2).max(50),
 })
 
-export function NewGroup() {
+interface INewGroup {
+  closePanel: () => void
+}
+
+export function NewGroup({ closePanel }: INewGroup) {
+  const [open, setOpen] = useState(false)
   const addGroup = useGroupStore((state) => state.addGroup)
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -31,10 +37,12 @@ export function NewGroup() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     addGroup(values.name)
+    setOpen(false)
+    closePanel()
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"

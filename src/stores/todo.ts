@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import { create } from 'zustand'
 import { IToDo } from '@/types'
-import { useGroupStore } from './group'
+import { useGroupStore } from '@/stores/group'
 
 interface State {
   toDos: IToDo[]
@@ -24,11 +24,24 @@ export const useToDoStore = create<State & Actions>((set) => ({
       title,
       completed: false,
     }
-    set((state) => ({ toDos: state.toDos.concat([newToDo]) }))
+
+    set((state) => {
+      const newToDos = state.toDos.concat([newToDo])
+
+      const activeGroup = useGroupStore.getState().activeGroup
+      window.localStorage.setItem(
+        `to-do-${activeGroup}`,
+        JSON.stringify(newToDos)
+      )
+
+      return {
+        toDos: newToDos,
+      }
+    })
   },
   updateToDo: (id, title) =>
-    set((state) => ({
-      toDos: state.toDos.map((td) => {
+    set((state) => {
+      const newToDos = state.toDos.map((td) => {
         if (td.id === id) {
           return {
             ...td,
@@ -37,12 +50,32 @@ export const useToDoStore = create<State & Actions>((set) => ({
         }
 
         return td
-      }),
-    })),
+      })
+
+      const activeGroup = useGroupStore.getState().activeGroup
+      window.localStorage.setItem(
+        `to-do-${activeGroup}`,
+        JSON.stringify(newToDos)
+      )
+
+      return {
+        toDos: newToDos,
+      }
+    }),
   deleteToDo: (id) =>
-    set((state) => ({
-      toDos: state.toDos.filter((td) => td.id !== id),
-    })),
+    set((state) => {
+      const newToDos = state.toDos.filter((td) => td.id !== id)
+
+      const activeGroup = useGroupStore.getState().activeGroup
+      window.localStorage.setItem(
+        `to-do-${activeGroup}`,
+        JSON.stringify(newToDos)
+      )
+
+      return {
+        toDos: newToDos,
+      }
+    }),
   setToDoState: (id, newState) =>
     set((state) => {
       const updatedToDos = state.toDos.map((td) => {
@@ -56,21 +89,43 @@ export const useToDoStore = create<State & Actions>((set) => ({
         return td
       })
 
-      console.log(updatedToDos)
+      const groupStore = useGroupStore.getState()
 
       const isComplete = updatedToDos.every((td) => td.completed)
+      groupStore.setGroupComplete(isComplete)
 
-      console.log(isComplete)
-
-      useGroupStore.getState().setGroupComplete(isComplete)
+      const activeGroup = groupStore.activeGroup
+      window.localStorage.setItem(
+        `to-do-${activeGroup}`,
+        JSON.stringify(updatedToDos)
+      )
 
       return {
         toDos: updatedToDos,
       }
     }),
-  setToDos: (newToDos) => set({ toDos: newToDos }),
+  setToDos: (newToDos) =>
+    set(() => {
+      const activeGroup = useGroupStore.getState().activeGroup
+      window.localStorage.setItem(
+        `to-do-${activeGroup}`,
+        JSON.stringify(newToDos)
+      )
+
+      return { toDos: newToDos }
+    }),
   clearCompleted: () =>
-    set((state) => ({
-      toDos: state.toDos.filter((td) => !td.completed),
-    })),
+    set((state) => {
+      const updatedToDos = state.toDos.filter((td) => !td.completed)
+
+      const activeGroup = useGroupStore.getState().activeGroup
+      window.localStorage.setItem(
+        `to-do-${activeGroup}`,
+        JSON.stringify(updatedToDos)
+      )
+
+      return {
+        toDos: updatedToDos,
+      }
+    }),
 }))
