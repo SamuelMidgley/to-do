@@ -16,6 +16,21 @@ interface Actions {
   clearCompleted: () => void
 }
 
+function afterMagic(toDos: IToDo[]) {
+  console.log('Maggicccccc')
+  const groupStore = useGroupStore.getState()
+
+  // Is the group now full of completed to dos?
+  const isComplete = toDos.length > 0 && toDos.every((td) => td.completed)
+  console.log(toDos)
+  console.log(isComplete)
+  groupStore.setGroupComplete(isComplete)
+
+  // Update local storage
+  const activeGroup = groupStore.activeGroup
+  window.localStorage.setItem(`to-do-${activeGroup}`, JSON.stringify(toDos))
+}
+
 export const useToDoStore = create<State & Actions>((set) => ({
   toDos: new Array<IToDo>(),
   addToDo: (title) => {
@@ -28,11 +43,7 @@ export const useToDoStore = create<State & Actions>((set) => ({
     set((state) => {
       const newToDos = state.toDos.concat([newToDo])
 
-      const activeGroup = useGroupStore.getState().activeGroup
-      window.localStorage.setItem(
-        `to-do-${activeGroup}`,
-        JSON.stringify(newToDos)
-      )
+      afterMagic(newToDos)
 
       return {
         toDos: newToDos,
@@ -52,11 +63,7 @@ export const useToDoStore = create<State & Actions>((set) => ({
         return td
       })
 
-      const activeGroup = useGroupStore.getState().activeGroup
-      window.localStorage.setItem(
-        `to-do-${activeGroup}`,
-        JSON.stringify(newToDos)
-      )
+      afterMagic(newToDos)
 
       return {
         toDos: newToDos,
@@ -66,11 +73,7 @@ export const useToDoStore = create<State & Actions>((set) => ({
     set((state) => {
       const newToDos = state.toDos.filter((td) => td.id !== id)
 
-      const activeGroup = useGroupStore.getState().activeGroup
-      window.localStorage.setItem(
-        `to-do-${activeGroup}`,
-        JSON.stringify(newToDos)
-      )
+      afterMagic(newToDos)
 
       return {
         toDos: newToDos,
@@ -89,16 +92,7 @@ export const useToDoStore = create<State & Actions>((set) => ({
         return td
       })
 
-      const groupStore = useGroupStore.getState()
-
-      const isComplete = updatedToDos.every((td) => td.completed)
-      groupStore.setGroupComplete(isComplete)
-
-      const activeGroup = groupStore.activeGroup
-      window.localStorage.setItem(
-        `to-do-${activeGroup}`,
-        JSON.stringify(updatedToDos)
-      )
+      afterMagic(updatedToDos)
 
       return {
         toDos: updatedToDos,
@@ -106,23 +100,14 @@ export const useToDoStore = create<State & Actions>((set) => ({
     }),
   setToDos: (newToDos) =>
     set(() => {
-      const activeGroup = useGroupStore.getState().activeGroup
-      window.localStorage.setItem(
-        `to-do-${activeGroup}`,
-        JSON.stringify(newToDos)
-      )
+      afterMagic(newToDos)
 
       return { toDos: newToDos }
     }),
   clearCompleted: () =>
     set((state) => {
       const updatedToDos = state.toDos.filter((td) => !td.completed)
-
-      const activeGroup = useGroupStore.getState().activeGroup
-      window.localStorage.setItem(
-        `to-do-${activeGroup}`,
-        JSON.stringify(updatedToDos)
-      )
+      afterMagic(updatedToDos)
 
       return {
         toDos: updatedToDos,

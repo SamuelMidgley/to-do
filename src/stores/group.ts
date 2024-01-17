@@ -45,8 +45,8 @@ export const useGroupStore = create<State & Actions>((set, get) => ({
   },
   setGroups: (newGroups) => set({ groups: newGroups }),
   setGroupComplete: (isComplete) =>
-    set((state) => ({
-      groups: state.groups.map((g) => {
+    set((state) => {
+      const newGroups = state.groups.map((g) => {
         if (g.id === state.activeGroup) {
           return {
             ...g,
@@ -54,8 +54,14 @@ export const useGroupStore = create<State & Actions>((set, get) => ({
           }
         }
         return g
-      }),
-    })),
+      })
+
+      window.localStorage.setItem('to-do-groups', JSON.stringify(newGroups))
+
+      return {
+        groups: newGroups,
+      }
+    }),
   updateGroup: (id, title) =>
     set((state) => {
       const newGroups = state.groups.map((g) => {
