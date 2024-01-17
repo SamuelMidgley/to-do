@@ -17,13 +17,10 @@ interface Actions {
 }
 
 function afterMagic(toDos: IToDo[]) {
-  console.log('Maggicccccc')
   const groupStore = useGroupStore.getState()
 
   // Is the group now full of completed to dos?
   const isComplete = toDos.length > 0 && toDos.every((td) => td.completed)
-  console.log(toDos)
-  console.log(isComplete)
   groupStore.setGroupComplete(isComplete)
 
   // Update local storage

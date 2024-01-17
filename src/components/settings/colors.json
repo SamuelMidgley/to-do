@@ -1,0 +1,39 @@
+{
+    "colors": [
+        {
+            "color": "zinc",
+            "hsl": "hsl(240 5.9% 10%)",
+            "hslDark": "hsl(0 0% 98%)"
+        },
+        {
+            "color": "red",
+            "hsl": "hsl(0 72.2% 50.6%)",
+            "hslDark": "hsl(0 72.2% 50.6%)"
+        },
+        {
+            "color": "blue",
+            "hsl": "hsl(221.2 83.2% 53.3%)",
+            "hslDark": "hsl(217.2 91.2% 59.8%)"
+        },
+        {
+            "color": "green",
+            "hsl": "hsl(142.1 76.2% 36.3%)",
+            "hslDark": "hsl(142.1 70.6% 45.3%)"
+        },
+        {
+            "color": "rose",
+            "hsl": "hsl(346.8 77.2% 49.8%)",
+            "hslDark": "hsl(346.8 77.2% 49.8%)"
+        },
+        {
+            "color": "yellow",
+            "hsl": "hsl(47.9 95.8% 53.1%)",
+            "hslDark": "hsl(47.9 95.8% 53.1%)"
+        },
+        {
+            "color": "violet",
+            "hsl": "hsl(262.1 83.3% 57.8%)",
+            "hslDark": "hsl(263.4 70% 50.4%)"
+        }
+    ]
+}
