@@ -25,6 +25,7 @@ export function Settings() {
         <div className="flex flex-wrap gap-2">
           {colors.colors.map((c) => (
             <ColorButton
+              key={c.color}
               color={c.color as Color}
               colorValue={c.hsl}
               colorValueDark={c.hslDark}

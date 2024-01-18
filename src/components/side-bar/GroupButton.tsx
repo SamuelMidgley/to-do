@@ -20,7 +20,7 @@ export function GroupButton({ group, closePanel }: IGroupButton) {
       <Button
         variant="ghost"
         className={cn(
-          'flex-1 justify-start items-center gap-2',
+          'flex-1 justify-start items-center gap-2 border-2 border-transparent',
           activeGroup === id && 'bg-accent text-accent-foreground'
         )}
         onClick={() => {

@@ -9,6 +9,11 @@ export function AddToDo() {
   const [value, setValue] = useState('')
 
   function addNewToDo() {
+    if (value.length === 0) {
+      // TODO: Some user indication
+      return
+    }
+
     addToDo(value)
     setValue('')
   }

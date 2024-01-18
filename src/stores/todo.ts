@@ -14,6 +14,7 @@ interface Actions {
   setToDoState: (id: string, newState: boolean) => void
   setToDos: (newToDos: IToDo[]) => void
   clearCompleted: () => void
+  deleteToDosFromGroup: (groupId: string) => void
 }
 
 function afterMagic(toDos: IToDo[]) {
@@ -28,7 +29,7 @@ function afterMagic(toDos: IToDo[]) {
   window.localStorage.setItem(`to-do-${activeGroup}`, JSON.stringify(toDos))
 }
 
-export const useToDoStore = create<State & Actions>((set) => ({
+export const useToDoStore = create<State & Actions>((set, get) => ({
   toDos: new Array<IToDo>(),
   addToDo: (title) => {
     const newToDo: IToDo = {
@@ -110,4 +111,14 @@ export const useToDoStore = create<State & Actions>((set) => ({
         toDos: updatedToDos,
       }
     }),
+  deleteToDosFromGroup: (groupId) => {
+    const groupStore = useGroupStore.getState()
+    const activeGroup = groupStore.activeGroup
+
+    if (groupId === activeGroup) {
+      get().setToDos(new Array<IToDo>())
+    }
+
+    window.localStorage.removeItem(`to-do-${groupId}`)
+  },
 }))

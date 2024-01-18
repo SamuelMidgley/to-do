@@ -10,8 +10,10 @@ Features
 - [x] Change border radius in settings page
 - [x] Change theme in settings page
 - [ ] Tests, e2e in Playwright, Component, unit
+- [x] Custom scrollbar
+- [ ] Cloud storage
 
-Bugs
+Bugs (Need tests for all these)
 
 - [x] Deleting groups should put you back onto my day
 - [x] Close dialog when group is added
@@ -27,4 +29,10 @@ Bugs
 - [x] Creating group should close panel and set active group
 - [x] Rename group doesn't work
 - [x] Delete group doesn't save
-- [ ] Renaming and deleting group should close the dialog
+- [x] Renaming and deleting group should close the dialog
+- [x] Swapping groups should clear the input
+- [x] Can't create empty to do
+
+Performance
+
+- [ ] Renaming group is occasionally quite long

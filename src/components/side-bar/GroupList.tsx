@@ -1,5 +1,6 @@
 import { GroupButton } from '@/components/side-bar/GroupButton'
 import { useGroupStore } from '@/stores/group'
+import { MyDayButton } from './MyDayButton'
 
 interface IGroupList {
   closePanel: () => void
@@ -10,6 +11,7 @@ export function GroupList({ closePanel }: IGroupList) {
 
   return (
     <ul>
+      <MyDayButton closePanel={() => closePanel()} />
       {groups
         .filter((g) => g.id !== 'My day')
         .map((g) => (
