@@ -1,4 +1,4 @@
-import { GroupButton } from '@/components/side-bar/GroupButton'
+import { GroupButton } from '@/components/side-bar/components/GroupButton'
 import { useGroupStore } from '@/stores/group'
 import { MyDayButton } from './MyDayButton'
 

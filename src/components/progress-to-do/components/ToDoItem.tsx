@@ -30,7 +30,7 @@ export function ToDoItem({ item }: ToDoProps) {
         value={title}
         onInput={(e) => onChangeHandler(e.currentTarget.value)}
       />
-      <ToDoOptions toDoId={id} />
+      <ToDoOptions toDoId={id} isComplete={completed} />
     </Card>
   )
 }

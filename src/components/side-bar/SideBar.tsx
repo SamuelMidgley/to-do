@@ -10,8 +10,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Settings } from '@/components/settings/Settings'
-import { GroupList } from '@/components/side-bar/GroupList'
-import { NewGroup } from '@/components/side-bar/NewGroup'
+import { GroupList } from '@/components/side-bar/components/GroupList'
+import { NewGroup } from '@/components/side-bar/components/NewGroup'
 
 export function SideBar() {
   const [open, setOpen] = useState(false)

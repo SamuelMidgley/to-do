@@ -1,6 +1,6 @@
 import { SunIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
-import { GroupSettings } from '@/components/side-bar/GroupSettings'
+import { GroupSettings } from '@/components/side-bar/components/GroupSettings'
 import { cn } from '@/lib/utils'
 import { useGroupStore } from '@/stores/group'
 

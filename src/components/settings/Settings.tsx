@@ -1,9 +1,9 @@
 import { GearIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
-import { ColorButton } from '@/components/settings/ColorButton'
-import { ModeButton } from '@/components/settings/ModeButton'
-import { RadiusButton } from '@/components/settings/RadiusButton'
+import { ColorButton } from '@/components/settings/components/ColorButton'
+import { ModeButton } from '@/components/settings/components/ModeButton'
+import { RadiusButton } from '@/components/settings/components/RadiusButton'
 import { Color } from '@/components/theme/ThemeProvider'
 import colors from '@/components/settings/colors.json'
 
