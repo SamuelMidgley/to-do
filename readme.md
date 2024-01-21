@@ -1,38 +1,93 @@
 # Not another to do app
 
-Roadmap
+## Roadmap
 
-Features
+v2.0.0 - Implement .NET backend with postgres db
 
-- [x] Theme colors on settings page
-- [ ] Side bar should be present if page is large enough
-- [x] Focus dialog with countdown
-- [x] Change border radius in settings page
-- [x] Change theme in settings page
-- [ ] Tests, e2e in Playwright, Component, unit
-- [x] Custom scrollbar
-- [ ] Cloud storage
+v3.0.0 - Create desktop app with Tauri
 
-Bugs (Need tests for all these)
+## Front end
 
-- [x] Deleting groups should put you back onto my day
-- [x] Close dialog when group is added
-- [x] Close panel when group selected
-- [x] Deleting completed to dos doesn't reset the group completed state in the side bar
-- [x] On new load My day group appears twice
-- [x] To dos aren't saved...
-- [x] Delete todos when deleting group
-- [x] Swapping groups should swap to dos
-- [x] Should be clear which group is active
-- [x] Groups aren't saving
-- [x] To dos aren't rounded
-- [x] Creating group should close panel and set active group
-- [x] Rename group doesn't work
-- [x] Delete group doesn't save
-- [x] Renaming and deleting group should close the dialog
-- [x] Swapping groups should clear the input
-- [x] Can create empty to do
+TBA
 
-Performance
+## Back end
 
-- [ ] Renaming group is occasionally quite long
+auth controller
+
+person controller
+
+- GET - api/v1/person/id
+- POST - api/v1/person
+- DELETE - api/v1/person/id
+- PATCH - api/v1/person/id
+
+todo controller
+
+- GET - api/v1/todo
+- POST - api/v1/todo
+- DELETE - api/v1/todo/id
+- PATCH - api/v1/todo/id
+
+group controller
+
+- GET - api/v1/group
+- POST - api/v1/group
+- DELETE - api/v1/group/id
+- DELETE - api/v1/group/id/todo
+- PATCH - api/v1/group/id
+
+## Database
+
+person
+
+- id
+- email
+- password (hashed)
+- name
+- radius
+- theme
+- color
+
+todo table
+
+- id
+- group_id
+- person_id
+- title
+- completed
+- date_created
+- date_updated
+- active
+
+group table
+
+- id
+- person_id
+- title
+- date_created
+- date_updated
+- active
+
+## Testing
+
+### e2e tests
+
+These were all bugs at some point but now need to be either Integration tests or e2e tests.
+
+- [ ] Deleting groups should put you back onto my day
+- [ ] Close dialog when group is added
+- [ ] Close panel when group selected
+- [ ] Deleting completed to dos doesn't reset the group completed state in the side bar
+- [ ] On new load My day group appears twice
+- [ ] To dos aren't saved...
+- [ ] Delete todos when deleting group
+- [ ] Swapping groups should swap to dos
+- [ ] Should be clear which group is active
+- [ ] Groups aren't saving
+- [ ] To dos aren't rounded
+- [ ] Creating group should close panel and set active group
+- [ ] Rename group doesn't work
+- [ ] Delete group doesn't save
+- [ ] Renaming and deleting group should close the dialog
+- [ ] Swapping groups should clear the input
+- [ ] Can create empty to do
