@@ -1,7 +1,4 @@
 import { useRef, useState } from 'react'
-import EmailIcon from '../../icons/EmailIcon'
-import LockIcon from '../../icons/LockIcon'
-import EyeIcon from '../../icons/EyeIcon'
 import './Login.css'
 
 export default function LogIn() {
@@ -99,7 +96,7 @@ export default function LogIn() {
         <label htmlFor="email">Email address</label>
         <br />
         <div className="input-wrapper input-wrapper-email">
-          <EmailIcon />
+          {/* <EmailIcon /> */}
           <input
             className="log-in-input"
             id="email"
@@ -110,7 +107,7 @@ export default function LogIn() {
         <label htmlFor="password">Password</label>
         <br />
         <div className="input-wrapper">
-          <LockIcon />
+          {/* <LockIcon /> */}
           <input
             className="log-in-input"
             ref={passwordRef}
@@ -121,7 +118,7 @@ export default function LogIn() {
           />
           {password.length > 0 && (
             <button type="button" onClick={() => toggleShowPassword(false)}>
-              <EyeIcon />
+              {/* <EyeIcon /> */}
             </button>
           )}
         </div>
@@ -129,7 +126,7 @@ export default function LogIn() {
           <>
             <label htmlFor="re-enter-password">Re-Enter Password</label>
             <div className="input-wrapper">
-              <LockIcon />
+              {/* <LockIcon /> */}
               <input
                 className="log-in-input"
                 ref={reEnterPasswordRef}
@@ -146,7 +143,7 @@ export default function LogIn() {
                   type="button"
                   onClick={() => toggleShowPassword(true)}
                 >
-                  <EyeIcon />
+                  {/* <EyeIcon /> */}
                 </button>
               )}
             </div>

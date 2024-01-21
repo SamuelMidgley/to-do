@@ -6,7 +6,7 @@ Features
 
 - [x] Theme colors on settings page
 - [ ] Side bar should be present if page is large enough
-- [ ] Focus dialog with countdown
+- [x] Focus dialog with countdown
 - [x] Change border radius in settings page
 - [x] Change theme in settings page
 - [ ] Tests, e2e in Playwright, Component, unit
@@ -31,7 +31,7 @@ Bugs (Need tests for all these)
 - [x] Delete group doesn't save
 - [x] Renaming and deleting group should close the dialog
 - [x] Swapping groups should clear the input
-- [x] Can't create empty to do
+- [x] Can create empty to do
 
 Performance
 

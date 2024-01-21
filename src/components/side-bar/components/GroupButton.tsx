@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { GroupSettings } from '@/components/side-bar/GroupSettings'
+import { GroupSettings } from '@/components/side-bar/components/GroupSettings'
 import { IGroup } from '@/types'
 import { CircleIcon, CompleteIcon } from '@/icons'
 import { useGroupStore } from '@/stores/group'
