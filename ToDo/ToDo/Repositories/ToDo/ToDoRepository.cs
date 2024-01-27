@@ -2,7 +2,7 @@
 using ToDo.Helpers;
 using ToDo.Models;
 
-namespace ToDo.Repository.ToDo;
+namespace ToDo.Repositories.ToDo;
 
 public class ToDoRepository(DataContext context) : IToDoRepository
 {
@@ -88,6 +88,34 @@ public class ToDoRepository(DataContext context) : IToDoRepository
                   """;
 
         var result = await connection.ExecuteAsync(sql, new { id, title });
+
+        return result == 1;
+    }
+
+    public async Task<bool> DeleteToDosFromGroup(string groupId)
+    {
+        using var connection = context.CreateConnection();
+
+        var sql = """
+                    DELETE FROM "ToDo"
+                    WHERE "GroupId" = @groupId
+                  """;
+
+        var result = await connection.ExecuteAsync(sql, new { groupId });
+
+        return result == 1;
+    }
+    
+    public async Task<bool> DeleteToDosFromList(IEnumerable<string> ids)
+    {
+        using var connection = context.CreateConnection();
+
+        var sql = """
+                    DELETE FROM "ToDo"
+                    WHERE "Id" in @ids
+                  """;
+
+        var result = await connection.ExecuteAsync(sql, new { ids });
 
         return result == 1;
     }

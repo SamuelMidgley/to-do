@@ -1,5 +1,5 @@
 ﻿using ToDo.Models;
-using ToDo.Repository.ToDo;
+using ToDo.Repositories.ToDo;
 
 namespace ToDo.Services.ToDo;
 
@@ -38,5 +38,15 @@ public class ToDoService(IToDoRepository toDoRepository) : IToDoService
             throw new KeyNotFoundException("To do not found");
         
         await toDoRepository.UpdateToDoTitle(id, title);
+    }
+
+    public async Task DeleteToDosFromGroup(string groupId)
+    {
+        await toDoRepository.DeleteToDosFromGroup(groupId);
+    }    
+    
+    public async Task DeleteToDosFromList(IEnumerable<string> ids)
+    {
+        await toDoRepository.DeleteToDosFromList(ids);
     }
 }

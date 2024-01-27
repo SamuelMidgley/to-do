@@ -1,5 +1,5 @@
 ﻿using ToDo.Models;
-using ToDo.Repository.Group;
+using ToDo.Repositories.Group;
 
 namespace ToDo.Services.Group;
 

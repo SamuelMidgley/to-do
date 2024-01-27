@@ -13,4 +13,8 @@ public interface IToDoService
     Task UpdateToDoState(string id, bool completed);
 
     Task UpdateToDoTitle(string id, string title);
+    
+    Task DeleteToDosFromGroup(string groupId);
+
+    Task DeleteToDosFromList(IEnumerable<string> ids);
 }

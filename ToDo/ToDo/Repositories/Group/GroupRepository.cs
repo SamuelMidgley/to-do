@@ -2,7 +2,7 @@
 using ToDo.Helpers;
 using ToDo.Models;
 
-namespace ToDo.Repository.Group;
+namespace ToDo.Repositories.Group;
 
 public class GroupRepository(DataContext context) : IGroupRepository
 {

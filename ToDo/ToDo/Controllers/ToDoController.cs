@@ -42,5 +42,19 @@ namespace ToDo.Controllers
             await toDoService.UpdateToDoTitle(id, title);
             return Ok(new { message = "To do title updated" });
         }
+
+        [HttpDelete("group/{groupId}")]
+        public async Task<ActionResult> DeleteToDosFromGroup(string groupId)
+        {
+            await toDoService.DeleteToDosFromGroup(groupId);
+            return Ok(new { message = "To dos deleted from group" });
+        }
+
+        [HttpDelete("")]
+        public async Task<ActionResult> DeleteToDosFromList([FromBody] IEnumerable<string> ids)
+        {
+            await toDoService.DeleteToDosFromList(ids);
+            return Ok(new { message = "To dos deleted from list" });
+        }
     }
 }

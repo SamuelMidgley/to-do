@@ -1,8 +1,8 @@
 using ToDo.Helpers;
 using ToDo.Services.Group;
 using ToDo.Services.ToDo;
-using ToDo.Repository.Group;
-using ToDo.Repository.ToDo;
+using ToDo.Repositories.Group;
+using ToDo.Repositories.ToDo;
 
 var builder = WebApplication.CreateBuilder(args);
 

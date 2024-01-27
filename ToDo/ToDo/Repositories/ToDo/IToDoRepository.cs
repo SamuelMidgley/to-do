@@ -1,6 +1,6 @@
 ﻿using ToDo.Models;
 
-namespace ToDo.Repository.ToDo;
+namespace ToDo.Repositories.ToDo;
 
 public interface IToDoRepository
 {
@@ -11,6 +11,10 @@ public interface IToDoRepository
     Task<bool> AddToDoItem(ToDoItem item);
 
     Task<bool> DeleteToDoItem(string id);
+
+    Task<bool> DeleteToDosFromGroup(string groupId);
+
+    Task<bool> DeleteToDosFromList(IEnumerable<string> ids);
     
     Task<bool> UpdateToDoState(string id, bool completed);
 
