@@ -1,0 +1,17 @@
+﻿stop_containers:
+	@echo "Stopping other docker container"
+	if [ $$(docker ps -q) ]; then \
+		echo "found and stopped containers"; \
+		docker stop $$(docker ps -q); \
+	else \
+		echo "no containers running..."; \
+	fi
+
+create_container:
+	docker run --name to_do_container -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=password -d postgres:12-alpine
+
+create_db:
+	docker exec -it to_do_container createdb --username=root --owner=root to_do_db
+
+start_container:
+	docker start to_do_container
