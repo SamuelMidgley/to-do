@@ -6,6 +6,19 @@ namespace ToDo.Repository.ToDo;
 
 public class ToDoRepository(DataContext context) : IToDoRepository
 {
+    public async Task<ToDoItem> GetToDoById(string id)
+    {
+        using var connection = context.CreateConnection();
+
+        var sql = """
+                    SELECT *
+                    FROM "ToDo"
+                    WHERE "Id" = @Id
+                  """;
+
+        return await connection.QueryFirstAsync<ToDoItem>(sql, new { id });
+    }
+    
     public async Task<IEnumerable<ToDoItem>> GetAllToDoItems(string groupId)
     {
         using var connection = context.CreateConnection();
@@ -45,22 +58,6 @@ public class ToDoRepository(DataContext context) : IToDoRepository
                   """;
 
         var result = await connection.ExecuteAsync(sql, new { id });
-        
-        return result == 1;
-    }
-
-    public async Task<bool> UpdateToDoItem(ToDoItem item)
-    {
-        using var connection = context.CreateConnection();
-        
-        var sql = """
-                      UPDATE "ToDo"
-                      SET "Title" = @Title,
-                          "Completed" = @Completed
-                      WHERE "Id" = @Id
-                  """;
-        
-        var result = await connection.ExecuteAsync(sql, item);
         
         return result == 1;
     }

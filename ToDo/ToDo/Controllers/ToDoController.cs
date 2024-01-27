@@ -1,47 +1,46 @@
 using Microsoft.AspNetCore.Mvc;
-using ToDo.Logic.ToDo;
+using ToDo.Services.ToDo;
 using ToDo.Models;
 
 namespace ToDo.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class ToDoController(IToDoLogic toDoLogic) : ControllerBase
+    public class ToDoController(IToDoService toDoService) : ControllerBase
     {
         [HttpGet("{groupId}")]
-        public async Task<ActionResult<Result<IEnumerable<ToDoItem>>>> GetAll(string groupId)
+        public async Task<ActionResult<IEnumerable<ToDoItem>>> GetAll(string groupId)
         {
-            return await toDoLogic.GetAllToDoItems(groupId);
+            var toDos = await toDoService.GetAllToDoItems(groupId);
+            return Ok(toDos);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Result>> Post(ToDoItem item)
+        public async Task<ActionResult> Post(ToDoItem item)
         {
-            return await toDoLogic.AddToDoItem(item);
+            await toDoService.AddToDoItem(item);
+            return Ok(new { message = "To do created" });
         }
         
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Result>> Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return await toDoLogic.DeleteToDoItem(id);
-        }
-        
-        [HttpPut]
-        public async Task<ActionResult<Result>> Put(ToDoItem item)
-        {
-            return await toDoLogic.UpdateToDoItem(item);
+            await toDoService.DeleteToDoItem(id);
+            return Ok(new { message = "To do deleted" });
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult<Result>> UpdateToDoState(string id, bool completed)
+        public async Task<ActionResult> UpdateToDoState(string id, bool completed)
         {
-            return await toDoLogic.UpdateToDoState(id, completed);
+            await toDoService.UpdateToDoState(id, completed);
+            return Ok(new { message = "To do state updated" });
         }
         
         [HttpPatch("{id}/title")]
-        public async Task<ActionResult<Result>> UpdateToDoTitle(string id, [FromBody] string title)
+        public async Task<ActionResult> UpdateToDoTitle(string id, [FromBody] string title)
         {
-            return await toDoLogic.UpdateToDoTitle(id, title);
+            await toDoService.UpdateToDoTitle(id, title);
+            return Ok(new { message = "To do title updated" });
         }
     }
 }

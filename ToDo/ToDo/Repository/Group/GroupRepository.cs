@@ -6,6 +6,19 @@ namespace ToDo.Repository.Group;
 
 public class GroupRepository(DataContext context) : IGroupRepository
 {
+    public async Task<GroupItem> GetById(string id)
+    {
+        using var connection = context.CreateConnection();
+
+        var sql = """
+                    SELECT *
+                    FROM "Group"
+                    WHERE "Id" = @Id
+                  """;
+
+        return await connection.QueryFirstAsync<GroupItem>(sql, new { id });
+    }
+    
     public async Task<IEnumerable<GroupItemIncComplete>> GetAll()
     {
         using var connection = context.CreateConnection();

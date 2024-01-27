@@ -4,6 +4,8 @@ namespace ToDo.Repository.Group;
 
 public interface IGroupRepository
 {
+    Task<GroupItem> GetById(string id);
+    
     Task<IEnumerable<GroupItemIncComplete>> GetAll();
 
     Task<bool> Add(GroupItem item);

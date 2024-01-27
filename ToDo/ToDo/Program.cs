@@ -1,6 +1,6 @@
 using ToDo.Helpers;
-using ToDo.Logic.Group;
-using ToDo.Logic.ToDo;
+using ToDo.Services.Group;
+using ToDo.Services.ToDo;
 using ToDo.Repository.Group;
 using ToDo.Repository.ToDo;
 
@@ -16,9 +16,9 @@ builder.Services.AddSwaggerGen();
 // Dependency Injection
 builder.Services.AddSingleton<DataContext>();
 builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
-builder.Services.AddScoped<IToDoLogic, ToDoLogic>();
+builder.Services.AddScoped<IToDoService, ToDoService>();
 builder.Services.AddScoped<IGroupRepository, GroupRepository>();
-builder.Services.AddScoped<IGroupLogic, GroupLogic>();
+builder.Services.AddScoped<IGroupService, GroupService>();
 
 var app = builder.Build();
 
@@ -32,6 +32,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.MapControllers();
 

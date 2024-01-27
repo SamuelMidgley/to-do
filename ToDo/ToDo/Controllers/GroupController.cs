@@ -1,35 +1,39 @@
 using Microsoft.AspNetCore.Mvc;
-using ToDo.Logic.Group;
+using ToDo.Services.Group;
 using ToDo.Models;
 
 namespace ToDo.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class GroupController(IGroupLogic groupLogic) : ControllerBase
+    public class GroupController(IGroupService groupService) : ControllerBase
     {
-        [HttpGet("")]
-        public async Task<ActionResult<Result<IEnumerable<GroupItemIncComplete>>>> GetAll()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<GroupItemIncComplete>>> GetAll()
         {
-            return await groupLogic.GetAll();
+            var groups = await groupService.GetAll();
+            return Ok(groups);
         }
         
-        [HttpPost("")]
-        public async Task<ActionResult<Result>> Post(GroupItem item)
+        [HttpPost]
+        public async Task<ActionResult> Post(GroupItem item)
         {
-            return await groupLogic.Add(item);
+            await groupService.Add(item);
+            return Ok(new { message = "Group created" });
         }
         
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Result>> Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return await groupLogic.Delete(id);
+            await groupService.Delete(id);
+            return Ok(new { message = "Group deleted" });
         }
         
         [HttpPut]
-        public async Task<ActionResult<Result>> Put(GroupItem item)
+        public async Task<ActionResult> Put(GroupItem item)
         {
-            return await groupLogic.Update(item);
+            await groupService.Update(item);
+            return Ok(new { message = "Group updated" });
         }
     }
 }
