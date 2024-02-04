@@ -4,13 +4,13 @@ namespace ToDo.Repositories.Group;
 
 public interface IGroupRepository
 {
-    Task<GroupItem> GetById(string id);
+    Task<GroupItem> GetById(int id);
     
     Task<IEnumerable<GroupItemIncComplete>> GetAll();
 
-    Task<bool> Add(GroupItem item);
+    Task<bool> Add(CreateGroupRequest item);
 
-    Task<bool> Delete(string id);
+    Task<bool> Delete(int id);
 
     Task<bool> Update(GroupItem item);
 }

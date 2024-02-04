@@ -4,17 +4,17 @@ namespace ToDo.Services.ToDo;
 
 public interface IToDoService
 {
-    Task<IEnumerable<ToDoItem>> GetAllToDoItems(string groupId);
-
-    Task AddToDoItem(ToDoItem item);
-
-    Task DeleteToDoItem(string id);
+    Task<IEnumerable<ToDoItem>> GetMyDayToDoItems();
     
-    Task UpdateToDoState(string id, bool completed);
+    Task<IEnumerable<ToDoItem>> GetAllToDoItems(int groupId);
 
-    Task UpdateToDoTitle(string id, string title);
+    Task AddToDoItem(CreateToDoRequest item);
+
+    Task DeleteToDoItem(int id);
     
-    Task DeleteToDosFromGroup(string groupId);
+    Task UpdateToDoState(int id, bool completed);
 
-    Task DeleteToDosFromList(IEnumerable<string> ids);
+    Task UpdateToDoTitle(int id, string title);
+    
+    Task DeleteToDosFromGroup(int groupId, bool completed);
 }

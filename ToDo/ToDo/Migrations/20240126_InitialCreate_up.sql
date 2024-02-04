@@ -1,19 +1,24 @@
-﻿CREATE TABLE "Group"
+﻿CREATE TABLE "group"
 (
-    "Id" text not null primary key,
-    "Title" text not null 
+    "id" serial primary key,
+    "title" text not null,
+    "date_created" timestamp default now(),
+    "is_deleted" bool not null default false
 );
 
-ALTER TABLE "Group"
+ALTER TABLE "group"
     OWNER TO root;
 
-CREATE TABLE "ToDo"
+CREATE TABLE "to_do"
 (
-    "Id" text not null primary key,
-    "GroupId" text references "Group"("Id"),
-    "Title" text not null,
-    "Completed" bool not null default false
+    "id" serial primary key,
+    "group_id" integer references "group"("id"),
+    "title" text not null,
+    "my_day" bool not null,
+    "completed" bool not null default false,
+    "date_created" timestamp default now(),
+    "is_deleted" bool not null default false
 );
 
-ALTER TABLE "ToDo"
+ALTER TABLE "to_do"
     OWNER TO root;

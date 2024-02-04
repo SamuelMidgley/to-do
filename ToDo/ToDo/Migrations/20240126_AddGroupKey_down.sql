@@ -1,2 +1,0 @@
-﻿ALTER TABLE "ToDo"
-DROP COLUMN "GroupId"

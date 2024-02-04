@@ -8,6 +8,13 @@ namespace ToDo.Controllers
     [ApiController]
     public class GroupController(IGroupService groupService) : ControllerBase
     {
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<GroupItem>> GetById(int id)
+        {
+            var group = await groupService.GetById(id);
+            return Ok(group);
+        }
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GroupItemIncComplete>>> GetAll()
         {
@@ -16,14 +23,14 @@ namespace ToDo.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult> Post(GroupItem item)
+        public async Task<ActionResult> Post(CreateGroupRequest item)
         {
             await groupService.Add(item);
             return Ok(new { message = "Group created" });
         }
         
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
         {
             await groupService.Delete(id);
             return Ok(new { message = "Group deleted" });

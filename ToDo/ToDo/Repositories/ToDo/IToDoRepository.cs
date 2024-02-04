@@ -4,19 +4,19 @@ namespace ToDo.Repositories.ToDo;
 
 public interface IToDoRepository
 {
-    Task<ToDoItem> GetToDoById(string id);
+    Task<ToDoItem> GetToDoById(int id);
+
+    Task<IEnumerable<ToDoItem>> GetMyDayToDoItems();
     
-    Task<IEnumerable<ToDoItem>> GetAllToDoItems(string groupId);
+    Task<IEnumerable<ToDoItem>> GetAllToDoItems(int groupId);
 
-    Task<bool> AddToDoItem(ToDoItem item);
+    Task<bool> AddToDoItem(CreateToDoRequest item);
 
-    Task<bool> DeleteToDoItem(string id);
+    Task<bool> DeleteToDoItem(int id);
 
-    Task<bool> DeleteToDosFromGroup(string groupId);
-
-    Task<bool> DeleteToDosFromList(IEnumerable<string> ids);
+    Task<bool> DeleteToDosFromGroup(int groupId, bool completed);
     
-    Task<bool> UpdateToDoState(string id, bool completed);
+    Task<bool> UpdateToDoState(int id, bool completed);
 
-    Task<bool> UpdateToDoTitle(string id, string title);
+    Task<bool> UpdateToDoTitle(int id, string title);
 }

@@ -4,13 +4,16 @@ namespace ToDo.Models;
 
 public class ToDoItem
 {
-    [StringLength(25)]
-    public string Id { get; set; } = "";
+    public int Id { get; set; }
     
     [StringLength(200)]
     public string Title { get; set; } = "";
     
-    public bool Completed { get; set; } = false;
+    public bool Completed { get; set; }
 
-    public string GroupId { get; set; } = "";
+    public int GroupId { get; set; }
+    
+    public bool MyDay { get; set; }
+    
+    public DateTime DateCreated { get; set; }
 }

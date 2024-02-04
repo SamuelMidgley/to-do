@@ -6,14 +6,15 @@ namespace ToDo.Repositories.Group;
 
 public class GroupRepository(DataContext context) : IGroupRepository
 {
-    public async Task<GroupItem> GetById(string id)
+    public async Task<GroupItem> GetById(int id)
     {
         using var connection = context.CreateConnection();
 
         var sql = """
                     SELECT *
-                    FROM "Group"
-                    WHERE "Id" = @Id
+                    FROM "group"
+                    WHERE "id" = @Id
+                    AND "is_deleted" = false
                   """;
 
         return await connection.QueryFirstAsync<GroupItem>(sql, new { id });
@@ -25,15 +26,18 @@ public class GroupRepository(DataContext context) : IGroupRepository
 
         var sql = """
                       SELECT
-                          G."Id" AS Id,
-                          G."Title" AS Title,
-                          COALESCE(MIN(CASE WHEN T."Completed" THEN 1 ELSE 0 END) = 1, TRUE) AS completed
+                          G."id" AS Id,
+                          G."title" AS Title,
+                          COALESCE(MIN(CASE WHEN T."completed" THEN 1 ELSE 0 END) = 1, TRUE) AS completed
                       FROM
-                          "Group" G
+                          "group" G
                       LEFT JOIN
-                          "ToDo" T ON G."Id" = T."GroupId"
+                          "to_do" T ON G."id" = T."group_id"
+                      WHERE G.is_deleted = false
+                        OR T.is_deleted = false
                       GROUP BY
-                          G."Id", G."Title";
+                          G."id", G."title"
+                      ORDER BY G."id";
                   """;
 
         var groups = await connection.QueryAsync<GroupItemIncComplete>(sql);
@@ -41,13 +45,13 @@ public class GroupRepository(DataContext context) : IGroupRepository
         return groups;
     }
     
-    public async Task<bool> Add(GroupItem item)
+    public async Task<bool> Add(CreateGroupRequest item)
     {
         using var connection = context.CreateConnection();
 
         var sql = """
-                      INSERT INTO "Group"
-                      VALUES (@Id, @Title)
+                      INSERT INTO "group"("title")
+                      VALUES (@Title)
                   """;
 
         var result = await connection.ExecuteAsync(sql, item);
@@ -55,13 +59,14 @@ public class GroupRepository(DataContext context) : IGroupRepository
         return result == 1;
     }
 
-    public async Task<bool> Delete(string id)
+    public async Task<bool> Delete(int id)
     {
         using var connection = context.CreateConnection();
 
         var sql = """
-                      DELETE FROM "Group"
-                      WHERE "Id" = @id
+                      UPDATE "group"
+                      SET "is_deleted" = true
+                      WHERE "id" = @id
                   """;
 
         var result = await connection.ExecuteAsync(sql, new { id });
@@ -74,9 +79,9 @@ public class GroupRepository(DataContext context) : IGroupRepository
         using var connection = context.CreateConnection();
         
         var sql = """
-                      UPDATE "Group"
-                      SET "Title" = @Title
-                      WHERE "Id" = @Id
+                      UPDATE "group"
+                      SET "title" = @Title
+                      WHERE "id" = @Id
                   """;
         
         var result = await connection.ExecuteAsync(sql, item);

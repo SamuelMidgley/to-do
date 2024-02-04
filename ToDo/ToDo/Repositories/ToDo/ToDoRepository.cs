@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Collections;
+using Dapper;
 using ToDo.Helpers;
 using ToDo.Models;
 
@@ -6,27 +7,42 @@ namespace ToDo.Repositories.ToDo;
 
 public class ToDoRepository(DataContext context) : IToDoRepository
 {
-    public async Task<ToDoItem> GetToDoById(string id)
+    public async Task<ToDoItem> GetToDoById(int id)
     {
         using var connection = context.CreateConnection();
 
         var sql = """
                     SELECT *
-                    FROM "ToDo"
-                    WHERE "Id" = @Id
+                    FROM "to_do"
+                    WHERE "id" = @Id
+                    AND "is_deleted" = false
                   """;
 
         return await connection.QueryFirstAsync<ToDoItem>(sql, new { id });
     }
+
+    public async Task<IEnumerable<ToDoItem>> GetMyDayToDoItems()
+    {
+        using var connection = context.CreateConnection();
+
+        var sql = """
+                    SELECT *
+                    FROM "to_do"
+                    WHERE "my_day" = true
+                  """;
+
+        return await connection.QueryAsync<ToDoItem>(sql);
+    }
     
-    public async Task<IEnumerable<ToDoItem>> GetAllToDoItems(string groupId)
+    public async Task<IEnumerable<ToDoItem>> GetAllToDoItems(int groupId)
     {
         using var connection = context.CreateConnection();
 
         var sql = """
                       SELECT *
-                      FROM "ToDo"
-                      WHERE "GroupId" = @groupId
+                      FROM "to_do"
+                      WHERE "group_id" = @groupId
+                      AND "is_deleted" = false
                   """;
 
         var toDos = await connection.QueryAsync<ToDoItem>(sql, new { groupId });
@@ -34,27 +50,39 @@ public class ToDoRepository(DataContext context) : IToDoRepository
         return toDos;
     }
 
-    public async Task<bool> AddToDoItem(ToDoItem item)
+    public async Task<bool> AddToDoItem(CreateToDoRequest item)
     {
         using var connection = context.CreateConnection();
+        string sql;
 
-        var sql = """
-                      INSERT INTO "ToDo"
-                      VALUES (@Id, @Title, false, @GroupId)
-                  """;
-
+        if (item.GroupId != null)
+        {
+            sql = """
+                          INSERT INTO "to_do"("title", "my_day", "group_id")
+                          VALUES (@Title, @MyDay, @GroupId)
+                      """;
+        }
+        else
+        {
+            sql = """
+                          INSERT INTO "to_do"("title", "my_day")
+                          VALUES (@Title, @MyDay)
+                      """;
+        }
+        
         var result = await connection.ExecuteAsync(sql, item);
         
         return result == 1;
     }
 
-    public async Task<bool> DeleteToDoItem(string id)
+    public async Task<bool> DeleteToDoItem(int id)
     {
         using var connection = context.CreateConnection();
 
         var sql = """
-                      DELETE FROM "ToDo"
-                      WHERE "Id" = @id
+                      UPDATE "to_do"
+                      SET "is_deleted" = true
+                      WHERE "id" = @id
                   """;
 
         var result = await connection.ExecuteAsync(sql, new { id });
@@ -62,14 +90,14 @@ public class ToDoRepository(DataContext context) : IToDoRepository
         return result == 1;
     }
 
-    public async Task<bool> UpdateToDoState(string id, bool completed)
+    public async Task<bool> UpdateToDoState(int id, bool completed)
     {
         using var connection = context.CreateConnection();
 
         var sql = """
-                        UPDATE "ToDo"
-                        SET "Completed" = @Completed
-                        WHERE "Id" = @Id
+                        UPDATE "to_do"
+                        SET "completed" = @Completed
+                        WHERE "id" = @Id
                   """;
 
         var result = await connection.ExecuteAsync(sql, new { id, completed });
@@ -77,14 +105,14 @@ public class ToDoRepository(DataContext context) : IToDoRepository
         return result == 1;
     }
 
-    public async Task<bool> UpdateToDoTitle(string id, string title)
+    public async Task<bool> UpdateToDoTitle(int id, string title)
     {
         using var connection = context.CreateConnection();
 
         var sql = """
-                        UPDATE "ToDo"
-                        SET "Title" = @Title
-                        WHERE "Id" = @Id
+                        UPDATE "to_do"
+                        SET "title" = @Title
+                        WHERE "id" = @Id
                   """;
 
         var result = await connection.ExecuteAsync(sql, new { id, title });
@@ -92,30 +120,24 @@ public class ToDoRepository(DataContext context) : IToDoRepository
         return result == 1;
     }
 
-    public async Task<bool> DeleteToDosFromGroup(string groupId)
+    public async Task<bool> DeleteToDosFromGroup(int groupId, bool completed)
     {
         using var connection = context.CreateConnection();
 
         var sql = """
-                    DELETE FROM "ToDo"
-                    WHERE "GroupId" = @groupId
+                    UPDATE "to_do"
+                    SET "is_deleted" = true
+                    WHERE "group_id" = @groupId
                   """;
+
+        if (completed)
+        {
+            sql += """
+                   AND "Completed" = true;
+                   """;
+        }
 
         var result = await connection.ExecuteAsync(sql, new { groupId });
-
-        return result == 1;
-    }
-    
-    public async Task<bool> DeleteToDosFromList(IEnumerable<string> ids)
-    {
-        using var connection = context.CreateConnection();
-
-        var sql = """
-                    DELETE FROM "ToDo"
-                    WHERE "Id" in @ids
-                  """;
-
-        var result = await connection.ExecuteAsync(sql, new { ids });
 
         return result == 1;
     }

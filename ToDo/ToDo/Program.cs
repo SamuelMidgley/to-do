@@ -33,6 +33,11 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.MapControllers();

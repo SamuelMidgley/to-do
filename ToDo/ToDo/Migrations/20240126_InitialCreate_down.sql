@@ -1,3 +1,3 @@
-﻿drop table "Group";
+﻿drop table "group";
 
-drop table "ToDo";
+drop table "to_do";
