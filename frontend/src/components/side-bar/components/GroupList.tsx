@@ -1,20 +1,23 @@
+import { useQuery } from '@tanstack/react-query'
 import { GroupButton } from '@/components/side-bar/components/GroupButton'
-import { useGroupStore } from '@/stores/group'
-import { MyDayButton } from './MyDayButton'
+import { MyDayButton } from '@/components/side-bar/components/MyDayButton'
+import groupService from '@/services/groupService'
 
 interface IGroupList {
   closePanel: () => void
 }
 
 export function GroupList({ closePanel }: IGroupList) {
-  const groups = useGroupStore((state) => state.groups)
+  const { data } = useQuery({
+    queryKey: ['groups'],
+    queryFn: groupService.getGroups,
+  })
 
   return (
     <ul>
       <MyDayButton closePanel={() => closePanel()} />
-      {groups
-        .filter((g) => g.id !== 'My day')
-        .map((g) => (
+      {data &&
+        data.map((g) => (
           <GroupButton key={g.id} group={g} closePanel={closePanel} />
         ))}
     </ul>

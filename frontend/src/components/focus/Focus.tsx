@@ -5,7 +5,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Timer } from '@/components/focus/components/Timer'
 
 interface IFocus {
-  toDoId: string
+  toDoId: number
   open: boolean
   setOpen: (newState: boolean) => void
 }

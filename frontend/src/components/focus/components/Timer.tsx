@@ -1,23 +1,34 @@
 import { useState, useEffect } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import { StopIcon } from '@radix-ui/react-icons'
-import { getCountdownText } from '../helper'
+
 import { Button } from '@/components/ui/button'
+import { getCountdownText } from '@/components/focus/helper'
 import { CompleteIcon } from '@/icons'
-import { useToDoStore } from '@/stores/todo'
+import toDoService from '@/services/toDoService'
 
 interface ITimer {
-  toDoId: string
+  toDoId: number
   duration: number
   stopTimer: () => void
 }
 
 export function Timer({ toDoId, duration, stopTimer }: ITimer) {
+  const queryClient = useQueryClient()
+
   // turn to seconds from minutes
   const [timeRemaining, setTimeRemaining] = useState(duration * 60)
-  const setToDoState = useToDoStore((state) => state.setToDoState)
   const percent = (1 - timeRemaining / duration) * 100
+
+  const toDoState = useMutation({
+    mutationFn: (id: number) => toDoService.updateToDoState(id, true),
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+  })
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -71,7 +82,7 @@ export function Timer({ toDoId, duration, stopTimer }: ITimer) {
         <Button
           className="items-center gap-2"
           variant="default"
-          onClick={() => setToDoState(toDoId, true)}
+          onClick={() => toDoState.mutate(toDoId)}
         >
           <CompleteIcon size={15} className="fill-primary-foreground" />
           Mark as complete

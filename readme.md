@@ -4,7 +4,7 @@
 
 v2.0.0 - Implement .NET backend with postgres db
 
-v3.0.0 - Create desktop app with Tauri
+v3.0.0 - Create desktop app with Tauri / Wails
 
 ## Front end
 

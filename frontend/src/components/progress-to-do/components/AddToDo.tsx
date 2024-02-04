@@ -1,11 +1,18 @@
 import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PlusIcon } from '@radix-ui/react-icons'
+
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { useToDoStore } from '@/stores/todo'
+import { CreateToDoRequest } from '@/types'
+import toDoService from '@/services/toDoService'
+import { useGroupStore } from '@/stores/group'
+
+// Should add group to this
 
 export function AddToDo() {
-  const addToDo = useToDoStore((state) => state.addToDo)
+  const groupId = useGroupStore((state) => state.activeGroup)
+  const queryClient = useQueryClient()
   const [value, setValue] = useState('')
 
   function addNewToDo() {
@@ -14,7 +21,10 @@ export function AddToDo() {
       return
     }
 
-    addToDo(value)
+    mutation.mutate({
+      title: value,
+      myDay: groupId === 'My day',
+    })
     setValue('')
   }
 
@@ -25,6 +35,14 @@ export function AddToDo() {
       addNewToDo()
     }
   }
+
+  const mutation = useMutation({
+    mutationFn: (newToDo: CreateToDoRequest) => toDoService.addToDo(newToDo),
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+  })
 
   return (
     <Card className="flex p-2 mt-2 mb-4">

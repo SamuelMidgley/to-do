@@ -1,10 +1,11 @@
 import { SunIcon } from '@radix-ui/react-icons'
+
 import { Button } from '@/components/ui/button'
 import { GroupSettings } from '@/components/side-bar/components/GroupSettings'
 import { cn } from '@/lib/utils'
 import { useGroupStore } from '@/stores/group'
 
-const myDayObj = { id: 'My day', title: 'My day', completed: false }
+const myDayObj = { id: 'My day', title: 'My day', completed: false } as const
 
 interface IMyDayButton {
   closePanel: () => void

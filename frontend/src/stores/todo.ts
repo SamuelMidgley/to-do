@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import { create } from 'zustand'
 import { IToDo } from '@/types'
 import { useGroupStore } from '@/stores/group'
@@ -9,9 +8,9 @@ interface State {
 
 interface Actions {
   addToDo: (title: string) => void
-  updateToDo: (id: string, title: string) => void
-  deleteToDo: (id: string) => void
-  setToDoState: (id: string, newState: boolean) => void
+  updateToDo: (id: number, title: string) => void
+  deleteToDo: (id: number) => void
+  setToDoState: (id: number, newState: boolean) => void
   setToDos: (newToDos: IToDo[]) => void
   clearCompleted: () => void
   deleteToDosFromGroup: (groupId: string) => void
@@ -33,7 +32,7 @@ export const useToDoStore = create<State & Actions>((set, get) => ({
   toDos: new Array<IToDo>(),
   addToDo: (title) => {
     const newToDo: IToDo = {
-      id: nanoid(),
+      id: Math.random(),
       title,
       completed: false,
     }

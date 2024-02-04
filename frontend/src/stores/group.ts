@@ -1,15 +1,14 @@
 import { create } from 'zustand'
-import { nanoid } from 'nanoid'
-import { IGroup } from '@/types'
+import { IGroup, GroupId } from '@/types'
 
 interface State {
   groups: IGroup[]
-  activeGroup: string
+  activeGroup: GroupId
 }
 
 interface Actions {
   addGroup: (title: string) => void
-  setActiveGroup: (id: string) => void
+  setActiveGroup: (id: GroupId) => void
   setGroups: (newGroups: IGroup[]) => void
   setGroupComplete: (isComplete: boolean) => void
   updateGroup: (id: string, title: string) => void
@@ -27,7 +26,7 @@ export const useGroupStore = create<State & Actions>((set, get) => ({
   activeGroup: 'My day',
   setActiveGroup: (id) => set({ activeGroup: id }),
   addGroup: (title) => {
-    const newGroupId = nanoid()
+    const newGroupId = Math.random()
 
     const newGroup = {
       id: newGroupId,

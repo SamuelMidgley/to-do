@@ -2,7 +2,9 @@ import { useState } from 'react'
 import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PlusIcon } from '@radix-ui/react-icons'
+
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import {
@@ -14,7 +16,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useGroupStore } from '@/stores/group'
+import groupService from '@/services/groupService'
+import { CreateGroupRequest } from '@/types'
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -25,8 +28,8 @@ interface INewGroup {
 }
 
 export function NewGroup({ closePanel }: INewGroup) {
+  const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
-  const addGroup = useGroupStore((state) => state.addGroup)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,9 +38,20 @@ export function NewGroup({ closePanel }: INewGroup) {
     },
   })
 
+  const mutation = useMutation({
+    mutationFn: (newGroup: CreateGroupRequest) =>
+      groupService.postGroup(newGroup),
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['groups'] })
+    },
+  })
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    addGroup(values.name)
     setOpen(false)
+    mutation.mutate({
+      title: values.name,
+    })
     closePanel()
   }
 

@@ -1,11 +1,16 @@
-import { useShallow } from 'zustand/react/shallow'
 import { useGroupStore } from '@/stores/group'
+import groupService from '@/services/groupService'
+import { useQuery } from '@tanstack/react-query'
 
 const date = new Date()
 
 export function ToDoHeader() {
   const activeGroupId = useGroupStore((state) => state.activeGroup)
-  const groups = useGroupStore(useShallow((state) => state.groups))
+
+  const { isSuccess, data } = useQuery({
+    queryKey: [activeGroupId],
+    queryFn: () => groupService.getGroupById(activeGroupId),
+  })
 
   if (activeGroupId === 'My day') {
     return (
@@ -21,9 +26,9 @@ export function ToDoHeader() {
     )
   }
 
-  return (
-    <h1 className="mt-8 mb-6 text-4xl font-bold">
-      {groups.find((g) => g.id === activeGroupId)?.title}
-    </h1>
-  )
+  if (!isSuccess || !data) {
+    return null
+  }
+
+  return <h1 className="mt-8 mb-6 text-4xl font-bold">{data.title}</h1>
 }

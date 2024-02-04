@@ -1,12 +1,13 @@
 import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { GearIcon } from '@radix-ui/react-icons'
+
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { IGroup } from '@/types'
-import { useGroupStore } from '@/stores/group'
-import { useToDoStore } from '@/stores/todo'
+import groupService from '@/services/groupService'
 
 interface IGroupSettings {
   group: IGroup
@@ -14,13 +15,25 @@ interface IGroupSettings {
 
 export function GroupSettings({ group }: IGroupSettings) {
   const { id, title } = group
+  const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
   const [groupName, setGroupName] = useState(title)
-  const updateGroup = useGroupStore((state) => state.updateGroup)
-  const deleteGroup = useGroupStore((state) => state.deleteGroup)
-  const deleteToDosFromGroup = useToDoStore(
-    (state) => state.deleteToDosFromGroup
-  )
+
+  const mutation = useMutation({
+    mutationFn: (groupId: number) => groupService.deleteGroup(groupId),
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['groups'] })
+    },
+  })
+
+  const updateName = useMutation({
+    mutationFn: (group: IGroup) => groupService.updateGroup(group),
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['groups'] })
+    },
+  })
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -43,7 +56,10 @@ export function GroupSettings({ group }: IGroupSettings) {
               <Button
                 onClick={() => {
                   setOpen(false)
-                  updateGroup(id, groupName)
+                  updateName.mutate({
+                    id,
+                    title: groupName,
+                  })
                 }}
               >
                 Rename
@@ -65,7 +81,7 @@ export function GroupSettings({ group }: IGroupSettings) {
               variant="destructive"
               onClick={() => {
                 setOpen(false)
-                deleteToDosFromGroup(id)
+                window.alert('Oops not implemented yet')
               }}
             >
               Delete to dos
@@ -85,7 +101,7 @@ export function GroupSettings({ group }: IGroupSettings) {
                   variant="destructive"
                   onClick={() => {
                     setOpen(false)
-                    deleteGroup(id)
+                    mutation.mutate(id)
                   }}
                 >
                   Delete group

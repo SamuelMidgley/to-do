@@ -1,5 +1,5 @@
-export interface IGroup {
-  id: string
+export interface IToDo {
+  id: number
   title: string
   completed: boolean
 }

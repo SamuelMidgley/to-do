@@ -1,8 +1,11 @@
+import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   CountdownTimerIcon,
   DotsVerticalIcon,
   TrashIcon,
 } from '@radix-ui/react-icons'
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -10,18 +13,25 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
-import { useToDoStore } from '@/stores/todo'
 import { Focus } from '@/components/focus/Focus'
-import { useState } from 'react'
+import toDoService from '@/services/toDoService'
 
 interface IToDoOptions {
-  toDoId: string
+  toDoId: number
   isComplete: boolean
 }
 
 export function ToDoOptions({ toDoId, isComplete }: IToDoOptions) {
+  const queryClient = useQueryClient()
   const [focusOpen, setFocusOpen] = useState(false)
-  const deleteToDo = useToDoStore((state) => state.deleteToDo)
+
+  const mutation = useMutation({
+    mutationFn: (id: number) => toDoService.deleteToDo(id),
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+  })
 
   return (
     <>
@@ -47,7 +57,9 @@ export function ToDoOptions({ toDoId, isComplete }: IToDoOptions) {
             </DropdownMenuItem>
           )}
           <DropdownMenuItem
-            onClick={() => deleteToDo(toDoId)}
+            onClick={() => {
+              mutation.mutate(toDoId)
+            }}
             className="flex gap-2 items-center focus:bg-destructive"
           >
             <TrashIcon className="h-4 w-4" />
